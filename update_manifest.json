@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "latest_version": "0.1.0",
+  "base_version": "0.1.0",
+  "mandatory": false,
+  "patch": {
+    "version": "0.1.0",
+    "url": "",
+    "sha256": "",
+    "size_bytes": 0
+  },
+  "full": {
+    "version": "0.1.0",
+    "url": "",
+    "sha256": "",
+    "size_bytes": 0
+  }
+}
