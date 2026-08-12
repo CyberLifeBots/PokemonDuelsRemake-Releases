@@ -1,0 +1,78 @@
+name: Update Patch Manifest
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Generate update manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
+          VERSION="${TAG#v}"
+
+          ASSET="$(jq -c \
+            '[.release.assets[] | select(.name | endswith("_patch.pck"))][0]' \
+            "$GITHUB_EVENT_PATH")"
+
+          if [[ "$ASSET" == "null" ]]; then
+            echo "::error::No *_patch.pck file was attached to this release."
+            exit 1
+          fi
+
+          URL="$(jq -r '.browser_download_url' <<< "$ASSET")"
+          SIZE="$(jq -r '.size' <<< "$ASSET")"
+          NAME="$(jq -r '.name' <<< "$ASSET")"
+
+          curl -L --fail --retry 3 "$URL" -o "/tmp/$NAME"
+
+          SHA="$(sha256sum "/tmp/$NAME" | awk '{print $1}')"
+
+          jq \
+            --arg version "$VERSION" \
+            --arg url "$URL" \
+            --arg sha "$SHA" \
+            --argjson size "$SIZE" \
+            '
+            .latest_version = $version
+            | .patch.version = $version
+            | .patch.url = $url
+            | .patch.sha256 = $sha
+            | .patch.size_bytes = $size
+            ' \
+            update_manifest.json \
+            > update_manifest.tmp
+
+          mv update_manifest.tmp update_manifest.json
+
+      - name: Commit updated manifest
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add update_manifest.json
+
+          if git diff --cached --quiet; then
+            echo "Manifest is already up to date."
+            exit 0
+          fi
+
+          VERSION="$(jq -r '.latest_version' update_manifest.json)"
+
+          git commit -m "Update manifest for v$VERSION"
+          git push origin HEAD:main
