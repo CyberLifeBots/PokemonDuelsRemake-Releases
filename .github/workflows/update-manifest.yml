@@ -1,6 +1,7 @@
 name: Update Patch Manifest
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -19,24 +20,30 @@ jobs:
 
       - name: Generate update manifest
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
-          TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
-          VERSION="${TAG#v}"
+          RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/Update")"
 
           ASSET="$(jq -c \
-            '[.release.assets[] | select(.name | endswith("_patch.pck"))][0]' \
-            "$GITHUB_EVENT_PATH")"
+            '[.assets[] | select(.name | test("^PokemonDuelsRemake_[0-9]+\\.[0-9]+\\.[0-9]+_patch\\.pck$"))] | sort_by(.created_at) | last' \
+            <<< "$RELEASE")"
 
           if [[ "$ASSET" == "null" ]]; then
-            echo "::error::No *_patch.pck file was attached to this release."
+            echo "::error::No PokemonDuelsRemake_X.X.X_patch.pck file was found in the Update release."
             exit 1
           fi
 
+          NAME="$(jq -r '.name' <<< "$ASSET")"
           URL="$(jq -r '.browser_download_url' <<< "$ASSET")"
           SIZE="$(jq -r '.size' <<< "$ASSET")"
-          NAME="$(jq -r '.name' <<< "$ASSET")"
+
+          VERSION="$(echo "$NAME" | sed -E 's/^PokemonDuelsRemake_([0-9]+\.[0-9]+\.[0-9]+)_patch\.pck$/\1/')"
+
+          echo "Detected version: $VERSION"
+          echo "Patch file: $NAME"
 
           curl -L --fail --retry 3 "$URL" -o "/tmp/$NAME"
 
