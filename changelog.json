@@ -6,34 +6,34 @@
       "changes": [
         "This update brings multiple new figures of different rarity such as common, uncommon and rare. The figures can evolve when they defeat an opponent. This makes winning a battle more rewarding for the best duelers!",
         
-  "🧩 C & UC FIGURES",
-  "Added a large batch of Common (C) and Uncommon (UC) Pokémon figures to the game.",
-  "Added support for their associated Abilities, move effects and evolution options.",
+        "🧩 C & UC FIGURES",
+        "Added a large batch of Common (C) and Uncommon (UC) Pokémon figures to the game.",
+        "Added support for their associated Abilities, move effects and evolution options.",
 
-  "🧬 EVOLUTION SYSTEM",
-  "Added full Evolution Lines, allowing Pokémon to be equipped with multiple consecutive evolutions.",
-  "Evolution stages must remain connected and cannot be skipped, such as Abra → Kadabra → Alakazam → Mega Alakazam.",
-  "The Evolution Editor now displays the entire equipped Evolution Line at the top of the screen.",
-  "Only valid Pokémon for the next stage of an Evolution Line are shown when selecting evolutions.",
-  "Pokémon in the Evolution Line can now be hovered to view their full Pokémon information card.",
-  "Pokémon now evolve after winning a battle, including victories that do not knock out the opponent.",
-  "Draws do not trigger Evolution.",
+        "🧬 EVOLUTION SYSTEM",
+        "Added full Evolution Lines, allowing Pokémon to be equipped with multiple consecutive evolutions.",
+        "Evolution stages must remain connected and cannot be skipped, such as Abra → Kadabra → Alakazam → Mega Alakazam.",
+        "The Evolution Editor now displays the entire equipped Evolution Line at the top of the screen.",
+        "Only valid Pokémon for the next stage of an Evolution Line are shown when selecting evolutions.",
+        "Pokémon in the Evolution Line can now be hovered to view their full Pokémon information card.",
+        "Pokémon now evolve after winning a battle, including victories that do not knock out the opponent.",
+        "Draws do not trigger Evolution.",
 
-  "🔍 POKÉMON INFORMATION",
-  "Added an Evolution preview shortcut during battles. Hover over a Pokémon and press E to cycle through its equipped Evolution Line.",
-  "Reaching the final Evolution with the E shortcut loops the preview back to the base Pokémon.",
-  "Evolution previews are informational only and do not change the Pokémon currently on the board.",
-  "Pokémon information cards now use one continuous scrollbar for easier navigation.",
+        "🔍 POKEMON INFORMATION",
+        "Added an Evolution preview shortcut during battles. Hover over a Pokémon and press E to cycle through its equipped Evolution Line.",
+        "Reaching the final Evolution with the E shortcut loops the preview back to the base Pokémon.",
+        "Evolution previews are informational only and do not change the Pokémon currently on the board.",
+        "Pokémon information cards now use one continuous scrollbar for easier navigation.",
 
-  "👥 TEAMS & MULTIPLAYER",
-  "Opponent team selections are now hidden during multiplayer Team Selection.",
-  "Players now display only their Choosing Team or Ready status instead of revealing their Pokémon and Plates.",
+        "👥 TEAMS & MULTIPLAYER",
+        "Opponent team selections are now hidden during multiplayer Team Selection.",
+        "Players now display only their Choosing Team or Ready status instead of revealing their Pokémon and Plates.",
 
-  "🤖 AI",
-  "Improved AI Goal awareness for Pokémon whose Abilities prevent them from winning by occupying the opponent's Goal.",
+        "🤖 AI",
+        "Improved AI Goal awareness for Pokémon whose Abilities prevent them from winning by occupying the opponent's Goal.",
 
-  "📜 PATCH NOTES",
-  "View previous Patch Notes and follow development on Discord: https://discord.com/invite/dzVEA5jxgD"
+        "📜 PATCH NOTES",
+        "View previous Patch Notes and follow development on Discord: https://discord.com/invite/dzVEA5jxgD"
       ]
     }
   ]
