@@ -1,53 +1,39 @@
 {
   "entries": [
     {
-      "version": "0.2.0",
-      "title": "Plates, AI & Gameplay Update",
+      "version": "0.3.0",
+      "title": "U, UC, R Figures & Evolution Update",
       "changes": [
-        "This update brings new ways to play with plates and UX Mega-evolution figures. Pokemon trainers will be able to show their skills by evolving their pokemon.",
+        "This update brings multiple new figures of different rarity such as common, uncommon and rare. The figures can evolve when they defeat an opponent. This makes winning a battle more rewarding for the best duelers!",
+        
+  "🧩 C & UC FIGURES",
+  "Added a large batch of Common (C) and Uncommon (UC) Pokémon figures to the game.",
+  "Added support for their associated Abilities, move effects and evolution options.",
 
-        "🟨 PLATES",
-        "Added the Plate system to battles, including visual Plate cards, Plate activation animations and sound effects.",
-        "Random Teams now receive a legal random Plate deck and automatically include a compatible Mega Plate when possible.",
+  "🧬 EVOLUTION SYSTEM",
+  "Added full Evolution Lines, allowing Pokémon to be equipped with multiple consecutive evolutions.",
+  "Evolution stages must remain connected and cannot be skipped, such as Abra → Kadabra → Alakazam → Mega Alakazam.",
+  "The Evolution Editor now displays the entire equipped Evolution Line at the top of the screen.",
+  "Only valid Pokémon for the next stage of an Evolution Line are shown when selecting evolutions.",
+  "Pokémon in the Evolution Line can now be hovered to view their full Pokémon information card.",
+  "Pokémon now evolve after winning a battle, including victories that do not knock out the opponent.",
+  "Draws do not trigger Evolution.",
 
-        "⚔️ BATTLES & ABILITIES",
-        "Multiple buffs on the same Pokémon now appear one at a time, with individual sounds.",
-        "Buffs and debuffs affecting both battle opponents now activate simultaneously, with the battle result waiting until all effects finish.",
-        "Fixed dual-type bonuses such as Fight Song, allowing Dragon/Flying Pokémon like Rayquaza to receive both bonuses.",
-        "Implemented Mega Rayquaza's Ripped Sky Reign movement and battle effects.",
-        "Fixed Imprison visually failing to turn affected wheel segments into Misses.",
-        "Optional Abilities such as Melemele Wish now ask the player whether to activate them and allow the player to choose the target.",
-        "Fixed pass-through Abilities incorrectly allowing Pokémon to enter through blocked Entry Points.",
-        "Fixed Shiny and regular Tapu Koko not sharing the correct pass-through behavior.",
-        "Fixed Tidal Wave push distance and Wait behavior.",
-        "Fixed Psycho Cut respins not correctly preserving the Psycho Cut result.",
-        "Fixed Psyshock interactions with existing status conditions and Wait.",
-        "Fixed an incorrect Lucario ability assignment that could cause Gold-vs-Purple interactions.",
-        "Added the proper Noxious status marker.",
-        "Mouse over a Pokémon instead of clicking it to see its information during a battle.",
+  "🔍 POKÉMON INFORMATION",
+  "Added an Evolution preview shortcut during battles. Hover over a Pokémon and press E to cycle through its equipped Evolution Line.",
+  "Reaching the final Evolution with the E shortcut loops the preview back to the base Pokémon.",
+  "Evolution previews are informational only and do not change the Pokémon currently on the board.",
+  "Pokémon information cards now use one continuous scrollbar for easier navigation.",
 
-        "👥 TEAMS & MULTIPLAYER",
-        "Shiny and regular versions of the same Pokémon now count as the same species toward the team copy limit.",
-        "Random Teams now automatically attach available evolutions and Mega Evolutions when possible.",
-        "Added Team Editor access during the online lobby/team-selection flow.",
-        "Improved saved-team selection for multiplayer matches.",
-        "Replaced the redundant Settings button at the bottom of the Teams menu with a Back button.",
-        "Removed unnecessary Ability hover overlays now that Ability information is scrollable.",
+  "👥 TEAMS & MULTIPLAYER",
+  "Opponent team selections are now hidden during multiplayer Team Selection.",
+  "Players now display only their Choosing Team or Ready status instead of revealing their Pokémon and Plates.",
 
-        "🎨 UI, AUDIO & FEEDBACK",
-        "Added the Duel Log, providing a scrollable history of important actions during a match. Players can use this when bug reporting.",
-        "Added a permanent turn indicator and improved turn-change banner timing.",
-        "End Turn is now correctly disabled when it is not your turn in AI and online matches.",
-        "Added winner and loser jingles at the end of duels.",
-        "Added Plate activation and evolution/devolution sound effects.",
-        "Pokémon that are excluded from the duel now fly upward and disappear from the board.",
-        "Surround knockouts now play the normal knockout/hit sound.",
-        "Added remaining Mega Evolution turns to the Pokémon information card.",
-        "Fixed some internal control/debug text appearing in player-facing descriptions.",
-        "Improved several wheel, tooltip and battle-feedback visuals.",
+  "🤖 AI",
+  "Improved AI Goal awareness for Pokémon whose Abilities prevent them from winning by occupying the opponent's Goal.",
 
-        "🐛 ADDITIONAL FIXES",
-        "Fixed several multiplayer, movement, targeting and battle-resolution cases."
+  "📜 PATCH NOTES",
+  "View previous Patch Notes and follow development on Discord: https://discord.com/invite/dzVEA5jxgD"
       ]
     }
   ]
