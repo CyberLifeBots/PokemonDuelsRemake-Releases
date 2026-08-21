@@ -6,8 +6,8 @@
   "patch": {
     "version": "0.3.9",
     "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.3.9/PokemonDuelsRemake_0.3.9_patch.pck",
-    "sha256": "dda9214e25a11d98e9bf6d0323882d643e4272b01941f3e40e07cfc03ee4a5fa",
-    "size_bytes": 183845908
+    "sha256": "60cfe8329d44c14cff719ed6fd9ac667531d03b65085b8fe05cbba7e0071849f",
+    "size_bytes": 927545148
   },
   "full": {
     "version": "0.1.0",
