@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag to rebuild the manifest from (example: v0.1.5)"
+        description: "Release tag to rebuild the manifest from (example: v0.4.1)"
         required: true
         type: string
 
@@ -66,20 +66,61 @@ jobs:
 
           echo "SHA256: $SHA"
 
-          jq \
+          PACKAGE_JSON="$(jq -n \
             --arg version "$VERSION" \
             --arg url "$URL" \
             --arg sha "$SHA" \
             --argjson size "$SIZE" \
-            '
-            .latest_version = $version
-            | .patch.version = $version
-            | .patch.url = $url
-            | .patch.sha256 = $sha
-            | .patch.size_bytes = $size
-            ' \
-            update_manifest.json \
-            > update_manifest.tmp
+            '{version:$version,url:$url,sha256:$sha,size_bytes:$size}')"
+
+          version_ge() {
+            [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" == "$2" ]]
+          }
+
+          if [[ "$VERSION" == "0.4.0" ]]; then
+            echo "Publishing v0.4.0 as the permanent legacy bridge and new clean base."
+            jq \
+              --arg version "$VERSION" \
+              --argjson package "$PACKAGE_JSON" \
+              '
+              .latest_version = $version
+              | .base_version = "0.1.0"
+              | .current_base_version = "0.4.0"
+              | .patch = $package
+              | .legacy_bridge = $package
+              | .current_patch = {
+                  version: "0.4.0",
+                  url: "",
+                  sha256: "",
+                  size_bytes: 0
+                }
+              ' \
+              update_manifest.json \
+              > update_manifest.tmp
+          elif version_ge "$VERSION" "0.4.0"; then
+            echo "Publishing a v0.4.x+ overlay while keeping the v0.4.0 bridge pinned."
+            jq \
+              --arg version "$VERSION" \
+              --argjson package "$PACKAGE_JSON" \
+              '
+              .latest_version = $version
+              | .current_base_version = (.current_base_version // "0.4.0")
+              | .current_patch = $package
+              ' \
+              update_manifest.json \
+              > update_manifest.tmp
+          else
+            echo "Publishing a pre-v0.4.0 legacy cumulative patch."
+            jq \
+              --arg version "$VERSION" \
+              --argjson package "$PACKAGE_JSON" \
+              '
+              .latest_version = $version
+              | .patch = $package
+              ' \
+              update_manifest.json \
+              > update_manifest.tmp
+          fi
 
           mv update_manifest.tmp update_manifest.json
 
