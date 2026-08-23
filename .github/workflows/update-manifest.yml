@@ -38,7 +38,10 @@ jobs:
 
           if [[ "${{ github.event_name }}" == "release" ]]; then
             TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
-            RELEASE="$(jq -c '.release' "$GITHUB_EVENT_PATH")"
+
+            # Re-fetch the release so manual asset replacements/uploads
+            # performed after publishing are included.
+            RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
           else
             TAG="${{ inputs.tag }}"
             RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
@@ -49,10 +52,22 @@ jobs:
           echo "Release tag: $TAG"
           echo "Detected version: $VERSION"
 
+          # -----------------------------------------------------
+          # FIND NEWEST *_patch.pck ASSET
+          #
+          # Multiple old patch assets may remain on a release.
+          # Always select the most recently uploaded one.
+          # -----------------------------------------------------
           ASSET="$(
-            jq -c \
-              '[.assets[] | select(.name | endswith("_patch.pck"))][0]' \
-              <<< "$RELEASE"
+            jq -c '
+              [
+                .assets[]
+                | select(.name | endswith("_patch.pck"))
+              ]
+              | sort_by(.created_at)
+              | reverse
+              | .[0]
+            ' <<< "$RELEASE"
           )"
 
           if [[ "$ASSET" == "null" ]]; then
@@ -65,39 +80,44 @@ jobs:
           SIZE="$(jq -r '.size' <<< "$ASSET")"
           ASSET_ID="$(jq -r '.id' <<< "$ASSET")"
 
-          echo "Patch file: $NAME"
-          echo "GitHub asset ID: $ASSET_ID"
-          echo "Manifest asset size: $SIZE bytes"
+          echo "Selected patch: $NAME"
+          echo "Asset ID: $ASSET_ID"
+          echo "Expected size: $SIZE bytes"
+          echo "Download URL: $URL"
 
-          VERIFY_URL="${URL}?asset_id=${ASSET_ID}"
-
-          curl \
-            -L \
-            --fail \
-            --retry 5 \
-            --retry-delay 2 \
-            -H "Cache-Control: no-cache" \
-            "$VERIFY_URL" \
-            -o "/tmp/$NAME"
+          # -----------------------------------------------------
+          # DOWNLOAD THE EXACT ASSET THROUGH GITHUB API
+          #
+          # This avoids CDN caching while calculating the SHA.
+          # The game itself will still receive the normal,
+          # completely plain browser_download_url.
+          # -----------------------------------------------------
+          gh api \
+            -H "Accept: application/octet-stream" \
+            "repos/${GITHUB_REPOSITORY}/releases/assets/${ASSET_ID}" \
+            > "/tmp/$NAME"
 
           ACTUAL_SIZE="$(stat -c%s "/tmp/$NAME")"
 
+          echo "Actual downloaded size: $ACTUAL_SIZE bytes"
+
           if [[ "$ACTUAL_SIZE" != "$SIZE" ]]; then
-            echo "::error::Downloaded patch size does not match the GitHub release asset."
+            echo "::error::Downloaded asset size does not match GitHub metadata."
             echo "::error::Expected $SIZE bytes but received $ACTUAL_SIZE bytes."
             exit 1
           fi
 
           SHA="$(sha256sum "/tmp/$NAME" | awk '{print $1}')"
-          DOWNLOAD_URL="${URL}?asset_id=${ASSET_ID}&sha256=${SHA}"
 
           echo "SHA256: $SHA"
-          echo "Client download URL: $DOWNLOAD_URL"
 
+          # IMPORTANT:
+          # Use the NORMAL GitHub Release URL.
+          # Do not append ?asset_id, ?sha256, timestamps, etc.
           PACKAGE_JSON="$(
             jq -n \
               --arg version "$VERSION" \
-              --arg url "$DOWNLOAD_URL" \
+              --arg url "$URL" \
               --arg sha "$SHA" \
               --argjson size "$SIZE" \
               '{
@@ -116,8 +136,12 @@ jobs:
             )" == "$2" ]]
           }
 
+          # -----------------------------------------------------
+          # v0.4.0
+          # -----------------------------------------------------
           if [[ "$VERSION" == "0.4.0" ]]; then
-            echo "Publishing v0.4.0 as the permanent legacy bridge and clean base."
+
+            echo "Publishing v0.4.0 as permanent legacy bridge."
 
             jq \
               --arg version "$VERSION" \
@@ -138,17 +162,18 @@ jobs:
               update_manifest.json \
               > update_manifest.tmp
 
+          # -----------------------------------------------------
+          # v0.5.0
+          #
+          # Major bootstrap-base transition.
+          # Old pre-0.4 clients still keep the permanent 0.4
+          # patch entry, while 0.4 clients receive v0.5 as the
+          # next bootstrap bridge.
+          # -----------------------------------------------------
           elif [[ "$VERSION" == "0.5.0" ]]; then
-            echo "Promoting v0.5.0 through the first-stage bootstrap."
-            echo "The old patch field remains pinned to v0.4.0 for pre-v0.4 updaters."
 
-            # IMPORTANT:
-            # v0.5.0 changes startup/UI infrastructure. A normal current_patch is
-            # mounted by UpdateManager, which is too late for an older executable's
-            # already-cached startup scene. Treat v0.5.0 as the next bootstrap base
-            # instead. v0.4.0 clients therefore install this PCK through
-            # active_patch_path, letting UpdateBootstrap mount it BEFORE the newer
-            # UpdateManager and other autoloads are instantiated.
+            echo "Publishing v0.5.0 as the current bootstrap base."
+
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
@@ -167,36 +192,52 @@ jobs:
               update_manifest.json \
               > update_manifest.tmp
 
+          # -----------------------------------------------------
+          # v0.5.0+
+          # -----------------------------------------------------
           elif version_ge "$VERSION" "0.5.0"; then
-            echo "Publishing a v0.5.0+ overlay while keeping the v0.5.0 bootstrap base pinned."
+
+            echo "Publishing v0.5.0+ overlay."
 
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
               '
               .latest_version = $version
-              | .current_base_version = (.current_base_version // "0.5.0")
+              | .current_base_version = (
+                  .current_base_version // "0.5.0"
+                )
               | .current_patch = $package
               ' \
               update_manifest.json \
               > update_manifest.tmp
 
+          # -----------------------------------------------------
+          # v0.4.x
+          # -----------------------------------------------------
           elif version_ge "$VERSION" "0.4.0"; then
-            echo "Publishing a v0.4.x overlay while keeping the v0.4.0 bridge pinned."
+
+            echo "Publishing v0.4.x overlay."
 
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
               '
               .latest_version = $version
-              | .current_base_version = (.current_base_version // "0.4.0")
+              | .current_base_version = (
+                  .current_base_version // "0.4.0"
+                )
               | .current_patch = $package
               ' \
               update_manifest.json \
               > update_manifest.tmp
 
+          # -----------------------------------------------------
+          # PRE-v0.4.0
+          # -----------------------------------------------------
           else
-            echo "Publishing a pre-v0.4.0 legacy cumulative patch."
+
+            echo "Publishing legacy cumulative patch."
 
             jq \
               --arg version "$VERSION" \
@@ -207,11 +248,13 @@ jobs:
               ' \
               update_manifest.json \
               > update_manifest.tmp
+
           fi
 
           mv update_manifest.tmp update_manifest.json
 
-          echo "Generated update_manifest.json:"
+          echo ""
+          echo "Generated manifest:"
           cat update_manifest.json
 
       - name: Commit updated manifest
@@ -230,10 +273,13 @@ jobs:
           fi
 
           VERSION="$(jq -r '.latest_version' update_manifest.json)"
+
           git commit -m "Update manifest for v$VERSION"
 
           for ATTEMPT in 1 2 3; do
-            echo "Push attempt $ATTEMPT of 3..."
+
+            echo "Push attempt $ATTEMPT..."
+
             git fetch origin main
             git rebase origin/main
 
@@ -245,5 +291,5 @@ jobs:
             sleep 3
           done
 
-          echo "::error::Could not push update_manifest.json after 3 attempts."
+          echo "::error::Could not push manifest after 3 attempts."
           exit 1
