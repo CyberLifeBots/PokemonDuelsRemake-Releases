@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag to rebuild the manifest from (example: v0.4.1)"
+        description: "Release tag to rebuild the manifest from (example: v0.5.0)"
         required: true
         type: string
 
@@ -19,11 +19,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ---------------------------------------------------------
+      # CHECKOUT
+      # ---------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
 
+      # ---------------------------------------------------------
+      # GENERATE MANIFEST
+      # ---------------------------------------------------------
       - name: Generate update manifest
         shell: bash
         env:
@@ -31,6 +38,9 @@ jobs:
         run: |
           set -euo pipefail
 
+          # -----------------------------------------------------
+          # GET RELEASE
+          # -----------------------------------------------------
           if [[ "${{ github.event_name }}" == "release" ]]; then
             TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
             RELEASE="$(jq -c '.release' "$GITHUB_EVENT_PATH")"
@@ -44,9 +54,14 @@ jobs:
           echo "Release tag: $TAG"
           echo "Detected version: $VERSION"
 
-          ASSET="$(jq -c \
-            '[.assets[] | select(.name | endswith("_patch.pck"))][0]' \
-            <<< "$RELEASE")"
+          # -----------------------------------------------------
+          # FIND PATCH
+          # -----------------------------------------------------
+          ASSET="$(
+            jq -c \
+              '[.assets[] | select(.name | endswith("_patch.pck"))][0]' \
+              <<< "$RELEASE"
+          )"
 
           if [[ "$ASSET" == "null" ]]; then
             echo "::error::No *_patch.pck file was found in release $TAG."
@@ -60,25 +75,60 @@ jobs:
           echo "Patch file: $NAME"
           echo "Patch size: $SIZE bytes"
 
-          curl -L --fail --retry 3 "$URL" -o "/tmp/$NAME"
+          # -----------------------------------------------------
+          # DOWNLOAD PATCH
+          # -----------------------------------------------------
+          curl \
+            -L \
+            --fail \
+            --retry 3 \
+            "$URL" \
+            -o "/tmp/$NAME"
 
+          # -----------------------------------------------------
+          # CALCULATE SHA256
+          # -----------------------------------------------------
           SHA="$(sha256sum "/tmp/$NAME" | awk '{print $1}')"
 
           echo "SHA256: $SHA"
 
-          PACKAGE_JSON="$(jq -n \
-            --arg version "$VERSION" \
-            --arg url "$URL" \
-            --arg sha "$SHA" \
-            --argjson size "$SIZE" \
-            '{version:$version,url:$url,sha256:$sha,size_bytes:$size}')"
+          # -----------------------------------------------------
+          # BUILD PACKAGE JSON
+          # -----------------------------------------------------
+          PACKAGE_JSON="$(
+            jq -n \
+              --arg version "$VERSION" \
+              --arg url "$URL" \
+              --arg sha "$SHA" \
+              --argjson size "$SIZE" \
+              '{
+                version: $version,
+                url: $url,
+                sha256: $sha,
+                size_bytes: $size
+              }'
+          )"
 
+          # -----------------------------------------------------
+          # VERSION COMPARISON
+          # -----------------------------------------------------
           version_ge() {
-            [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" == "$2" ]]
+            [[ "$(
+              printf '%s\n%s\n' "$1" "$2" |
+              sort -V |
+              head -n1
+            )" == "$2" ]]
           }
 
+          # -----------------------------------------------------
+          # v0.4.0
+          #
+          # Permanent legacy bridge + clean base.
+          # -----------------------------------------------------
           if [[ "$VERSION" == "0.4.0" ]]; then
+
             echo "Publishing v0.4.0 as the permanent legacy bridge and new clean base."
+
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
@@ -97,20 +147,39 @@ jobs:
               ' \
               update_manifest.json \
               > update_manifest.tmp
+
+          # -----------------------------------------------------
+          # v0.4.0+
+          #
+          # Normal cumulative overlay for the new base.
+          # Keeps the v0.4.0 bridge permanently pinned.
+          # -----------------------------------------------------
           elif version_ge "$VERSION" "0.4.0"; then
-            echo "Publishing a v0.4.x+ overlay while keeping the v0.4.0 bridge pinned."
+
+            echo "Publishing a v0.4.0+ overlay while keeping the v0.4.0 bridge pinned."
+
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
               '
               .latest_version = $version
-              | .current_base_version = (.current_base_version // "0.4.0")
+              | .current_base_version = (
+                  .current_base_version // "0.4.0"
+                )
               | .current_patch = $package
               ' \
               update_manifest.json \
               > update_manifest.tmp
+
+          # -----------------------------------------------------
+          # PRE-v0.4.0
+          #
+          # Legacy cumulative update system.
+          # -----------------------------------------------------
           else
+
             echo "Publishing a pre-v0.4.0 legacy cumulative patch."
+
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
@@ -120,18 +189,29 @@ jobs:
               ' \
               update_manifest.json \
               > update_manifest.tmp
+
           fi
 
           mv update_manifest.tmp update_manifest.json
 
+          echo ""
+          echo "Generated update_manifest.json:"
+          cat update_manifest.json
+
+      # ---------------------------------------------------------
+      # COMMIT + SAFELY PUSH
+      # ---------------------------------------------------------
       - name: Commit updated manifest
         shell: bash
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add update_manifest.json
 
+          # Nothing changed, so there is nothing to commit.
           if git diff --cached --quiet; then
             echo "Manifest is already up to date."
             exit 0
@@ -140,4 +220,20 @@ jobs:
           VERSION="$(jq -r '.latest_version' update_manifest.json)"
 
           git commit -m "Update manifest for v$VERSION"
+
+          # -----------------------------------------------------
+          # IMPORTANT:
+          # main may have changed while this workflow was running.
+          #
+          # Fetch the newest main branch and place our manifest
+          # commit on top of it instead of force-pushing.
+          # -----------------------------------------------------
+          git fetch origin main
+          git rebase origin/main
+
+          # -----------------------------------------------------
+          # PUSH
+          # -----------------------------------------------------
           git push origin HEAD:main
+
+          echo "Manifest successfully updated for v$VERSION."
