@@ -38,120 +38,95 @@ jobs:
 
           if [[ "${{ github.event_name }}" == "release" ]]; then
             TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
-
-            # Re-fetch the release so manual asset replacements/uploads
-            # performed after publishing are included.
-            RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
           else
             TAG="${{ inputs.tag }}"
-            RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
           fi
 
+          RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
           VERSION="${TAG#v}"
 
           echo "Release tag: $TAG"
           echo "Detected version: $VERSION"
 
-          # -----------------------------------------------------
-          # FIND NEWEST *_patch.pck ASSET
-          #
-          # Multiple old patch assets may remain on a release.
-          # Always select the most recently uploaded one.
-          # -----------------------------------------------------
-          ASSET="$(
-            jq -c '
-              [
-                .assets[]
-                | select(.name | endswith("_patch.pck"))
-              ]
-              | sort_by(.created_at)
-              | reverse
-              | .[0]
-            ' <<< "$RELEASE"
-          )"
+          newest_asset_matching() {
+            local jq_filter="$1"
+            jq -c "[.assets[] | select(${jq_filter})] | sort_by(.created_at) | reverse | .[0]" <<< "$RELEASE"
+          }
 
-          if [[ "$ASSET" == "null" ]]; then
-            echo "::error::No *_patch.pck file was found in release $TAG."
-            exit 1
-          fi
+          package_from_asset() {
+            local asset_json="$1"
+            local package_version="$2"
 
-          NAME="$(jq -r '.name' <<< "$ASSET")"
-          URL="$(jq -r '.browser_download_url' <<< "$ASSET")"
-          SIZE="$(jq -r '.size' <<< "$ASSET")"
-          ASSET_ID="$(jq -r '.id' <<< "$ASSET")"
+            if [[ "$asset_json" == "null" || -z "$asset_json" ]]; then
+              echo "::error::Required release asset was not found." >&2
+              exit 1
+            fi
 
-          echo "Selected patch: $NAME"
-          echo "Asset ID: $ASSET_ID"
-          echo "Expected size: $SIZE bytes"
-          echo "Download URL: $URL"
+            local name url size asset_id tmp actual_size sha
+            name="$(jq -r '.name' <<< "$asset_json")"
+            url="$(jq -r '.browser_download_url' <<< "$asset_json")"
+            size="$(jq -r '.size' <<< "$asset_json")"
+            asset_id="$(jq -r '.id' <<< "$asset_json")"
+            tmp="/tmp/${asset_id}_${name}"
 
-          # -----------------------------------------------------
-          # DOWNLOAD THE EXACT ASSET THROUGH GITHUB API
-          #
-          # This avoids CDN caching while calculating the SHA.
-          # The game itself will still receive the normal,
-          # completely plain browser_download_url.
-          # -----------------------------------------------------
-          gh api \
-            -H "Accept: application/octet-stream" \
-            "repos/${GITHUB_REPOSITORY}/releases/assets/${ASSET_ID}" \
-            > "/tmp/$NAME"
+            echo "Preparing $name ($size bytes)" >&2
 
-          ACTUAL_SIZE="$(stat -c%s "/tmp/$NAME")"
+            # Hash the exact GitHub asset through the API. The manifest still gets
+            # the normal browser_download_url, with no query-string cache hacks.
+            gh api \
+              -H "Accept: application/octet-stream" \
+              "repos/${GITHUB_REPOSITORY}/releases/assets/${asset_id}" \
+              > "$tmp"
 
-          echo "Actual downloaded size: $ACTUAL_SIZE bytes"
+            actual_size="$(stat -c%s "$tmp")"
+            if [[ "$actual_size" != "$size" ]]; then
+              echo "::error::$name size mismatch: expected $size, got $actual_size" >&2
+              exit 1
+            fi
 
-          if [[ "$ACTUAL_SIZE" != "$SIZE" ]]; then
-            echo "::error::Downloaded asset size does not match GitHub metadata."
-            echo "::error::Expected $SIZE bytes but received $ACTUAL_SIZE bytes."
-            exit 1
-          fi
+            sha="$(sha256sum "$tmp" | awk '{print $1}')"
+            echo "$name SHA256: $sha" >&2
 
-          SHA="$(sha256sum "/tmp/$NAME" | awk '{print $1}')"
-
-          echo "SHA256: $SHA"
-
-          # IMPORTANT:
-          # Use the NORMAL GitHub Release URL.
-          # Do not append ?asset_id, ?sha256, timestamps, etc.
-          PACKAGE_JSON="$(
             jq -n \
-              --arg version "$VERSION" \
-              --arg url "$URL" \
-              --arg sha "$SHA" \
-              --argjson size "$SIZE" \
+              --arg version "$package_version" \
+              --arg url "$url" \
+              --arg sha "$sha" \
+              --argjson size "$size" \
               '{
                 version: $version,
                 url: $url,
                 sha256: $sha,
                 size_bytes: $size
               }'
-          )"
+          }
 
           version_ge() {
-            [[ "$(
-              printf '%s\n%s\n' "$1" "$2" |
-              sort -V |
-              head -n1
-            )" == "$2" ]]
+            [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" == "$2" ]]
           }
 
           # -----------------------------------------------------
           # v0.4.0
+          # Permanent bridge for pre-v0.4 updater builds.
           # -----------------------------------------------------
           if [[ "$VERSION" == "0.4.0" ]]; then
-
-            echo "Publishing v0.4.0 as permanent legacy bridge."
+            PATCH_ASSET="$(newest_asset_matching '.name | endswith("_patch.pck")')"
+            PATCH_PACKAGE="$(package_from_asset "$PATCH_ASSET" "$VERSION")"
 
             jq \
               --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
+              --argjson package "$PATCH_PACKAGE" \
               '
               .latest_version = $version
               | .base_version = "0.1.0"
               | .current_base_version = "0.4.0"
               | .patch = $package
               | .legacy_bridge = $package
+              | .full = {
+                  version: "0.1.0",
+                  url: "",
+                  sha256: "",
+                  size_bytes: 0
+                }
               | .current_patch = {
                   version: "0.4.0",
                   url: "",
@@ -159,29 +134,46 @@ jobs:
                   size_bytes: 0
                 }
               ' \
-              update_manifest.json \
-              > update_manifest.tmp
+              update_manifest.json > update_manifest.tmp
 
           # -----------------------------------------------------
           # v0.5.0
+          # FULL BASE TRANSITION.
           #
-          # Major bootstrap-base transition.
-          # Old pre-0.4 clients still keep the permanent 0.4
-          # patch entry, while 0.4 clients receive v0.5 as the
-          # next bootstrap bridge.
+          # Required assets on the v0.5.0 release:
+          #   *_bridge_patch.pck   -> tiny updater-only patch made from v0.4.0
+          #   *_windows_full.zip   -> complete v0.5.0 Windows build ZIP
+          #
+          # The internal bridge version is 0.4.1. It is not a public gameplay
+          # release; it exists only so already-shipped v0.4.0 clients learn how
+          # to download/install the full v0.5.0 build.
           # -----------------------------------------------------
           elif [[ "$VERSION" == "0.5.0" ]]; then
+            BRIDGE_ASSET="$(newest_asset_matching '.name | endswith("_bridge_patch.pck")')"
+            FULL_ASSET="$(newest_asset_matching '.name | endswith("_windows_full.zip")')"
 
-            echo "Publishing v0.5.0 as the current bootstrap base."
+            if [[ "$BRIDGE_ASSET" == "null" ]]; then
+              echo "::error::v0.5.0 requires a *_bridge_patch.pck asset." >&2
+              exit 1
+            fi
+            if [[ "$FULL_ASSET" == "null" ]]; then
+              echo "::error::v0.5.0 requires a *_windows_full.zip asset." >&2
+              exit 1
+            fi
+
+            BRIDGE_PACKAGE="$(package_from_asset "$BRIDGE_ASSET" "0.4.1")"
+            FULL_PACKAGE="$(package_from_asset "$FULL_ASSET" "0.5.0")"
 
             jq \
               --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
+              --argjson bridge "$BRIDGE_PACKAGE" \
+              --argjson full "$FULL_PACKAGE" \
               '
               .latest_version = $version
               | .base_version = (.base_version // "0.1.0")
               | .current_base_version = "0.5.0"
-              | .legacy_bridge = $package
+              | .legacy_bridge = $bridge
+              | .full = $full
               | .current_patch = {
                   version: "0.5.0",
                   url: "",
@@ -189,72 +181,71 @@ jobs:
                   size_bytes: 0
                 }
               ' \
-              update_manifest.json \
-              > update_manifest.tmp
+              update_manifest.json > update_manifest.tmp
 
           # -----------------------------------------------------
-          # v0.5.0+
+          # v0.5.1+
+          # Normal cumulative PCK overlays based on the clean v0.5.0 base.
+          # Keep the v0.4 updater bridge and v0.5 full ZIP pinned.
           # -----------------------------------------------------
           elif version_ge "$VERSION" "0.5.0"; then
+            PATCH_ASSET="$(newest_asset_matching '(.name | endswith("_patch.pck")) and ((.name | endswith("_bridge_patch.pck")) | not)')"
 
-            echo "Publishing v0.5.0+ overlay."
+            if [[ "$PATCH_ASSET" == "null" ]]; then
+              echo "::error::No normal *_patch.pck file was found in release $TAG." >&2
+              exit 1
+            fi
+
+            PATCH_PACKAGE="$(package_from_asset "$PATCH_ASSET" "$VERSION")"
 
             jq \
               --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
+              --argjson package "$PATCH_PACKAGE" \
               '
               .latest_version = $version
-              | .current_base_version = (
-                  .current_base_version // "0.5.0"
-                )
+              | .current_base_version = "0.5.0"
               | .current_patch = $package
               ' \
-              update_manifest.json \
-              > update_manifest.tmp
+              update_manifest.json > update_manifest.tmp
 
           # -----------------------------------------------------
-          # v0.4.x
+          # v0.4.x (before the v0.5 transition)
           # -----------------------------------------------------
           elif version_ge "$VERSION" "0.4.0"; then
-
-            echo "Publishing v0.4.x overlay."
+            PATCH_ASSET="$(newest_asset_matching '.name | endswith("_patch.pck")')"
+            PATCH_PACKAGE="$(package_from_asset "$PATCH_ASSET" "$VERSION")"
 
             jq \
               --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
+              --argjson package "$PATCH_PACKAGE" \
               '
               .latest_version = $version
-              | .current_base_version = (
-                  .current_base_version // "0.4.0"
-                )
+              | .current_base_version = "0.4.0"
               | .current_patch = $package
               ' \
-              update_manifest.json \
-              > update_manifest.tmp
+              update_manifest.json > update_manifest.tmp
 
           # -----------------------------------------------------
-          # PRE-v0.4.0
+          # pre-v0.4.0 legacy cumulative system
           # -----------------------------------------------------
           else
-
-            echo "Publishing legacy cumulative patch."
+            PATCH_ASSET="$(newest_asset_matching '.name | endswith("_patch.pck")')"
+            PATCH_PACKAGE="$(package_from_asset "$PATCH_ASSET" "$VERSION")"
 
             jq \
               --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
+              --argjson package "$PATCH_PACKAGE" \
               '
               .latest_version = $version
               | .patch = $package
               ' \
-              update_manifest.json \
-              > update_manifest.tmp
-
+              update_manifest.json > update_manifest.tmp
           fi
 
           mv update_manifest.tmp update_manifest.json
 
           echo ""
-          echo "Generated manifest:"
+          echo "Generated update_manifest.json:"
           cat update_manifest.json
 
       - name: Commit updated manifest
@@ -273,13 +264,10 @@ jobs:
           fi
 
           VERSION="$(jq -r '.latest_version' update_manifest.json)"
-
           git commit -m "Update manifest for v$VERSION"
 
           for ATTEMPT in 1 2 3; do
-
-            echo "Push attempt $ATTEMPT..."
-
+            echo "Push attempt $ATTEMPT of 3..."
             git fetch origin main
             git rebase origin/main
 
@@ -291,5 +279,5 @@ jobs:
             sleep 3
           done
 
-          echo "::error::Could not push manifest after 3 attempts."
+          echo "::error::Could not push update_manifest.json after 3 attempts."
           exit 1
