@@ -14,7 +14,6 @@ on:
 permissions:
   contents: write
 
-# Prevent two manifest workflows from trying to update main at the same time.
 concurrency:
   group: update-patch-manifest
   cancel-in-progress: false
@@ -24,18 +23,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # =========================================================
-      # CHECKOUT
-      # =========================================================
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
 
-      # =========================================================
-      # GENERATE MANIFEST
-      # =========================================================
       - name: Generate update manifest
         shell: bash
         env:
@@ -43,9 +36,6 @@ jobs:
         run: |
           set -euo pipefail
 
-          # -----------------------------------------------------
-          # GET RELEASE
-          # -----------------------------------------------------
           if [[ "${{ github.event_name }}" == "release" ]]; then
             TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
             RELEASE="$(jq -c '.release' "$GITHUB_EVENT_PATH")"
@@ -56,14 +46,9 @@ jobs:
 
           VERSION="${TAG#v}"
 
-          echo "=========================================="
           echo "Release tag: $TAG"
           echo "Detected version: $VERSION"
-          echo "=========================================="
 
-          # -----------------------------------------------------
-          # FIND PATCH ASSET
-          # -----------------------------------------------------
           ASSET="$(
             jq -c \
               '[.assets[] | select(.name | endswith("_patch.pck"))][0]' \
@@ -84,24 +69,8 @@ jobs:
           echo "GitHub asset ID: $ASSET_ID"
           echo "Manifest asset size: $SIZE bytes"
 
-          # -----------------------------------------------------
-          # CACHE-BUSTED DOWNLOAD URL
-          #
-          # If an asset is deleted and replaced with the exact
-          # same filename, GitHub/CDN may temporarily serve an
-          # older cached copy.
-          #
-          # The GitHub asset ID changes whenever the asset is
-          # replaced, making this URL unique.
-          # -----------------------------------------------------
           VERIFY_URL="${URL}?asset_id=${ASSET_ID}"
 
-          echo "Verification URL:"
-          echo "$VERIFY_URL"
-
-          # -----------------------------------------------------
-          # DOWNLOAD PATCH
-          # -----------------------------------------------------
           curl \
             -L \
             --fail \
@@ -111,50 +80,20 @@ jobs:
             "$VERIFY_URL" \
             -o "/tmp/$NAME"
 
-          # -----------------------------------------------------
-          # VERIFY ACTUAL FILE SIZE
-          #
-          # Do NOT generate a manifest if GitHub gave the workflow
-          # a stale/cached asset.
-          # -----------------------------------------------------
           ACTUAL_SIZE="$(stat -c%s "/tmp/$NAME")"
-
-          echo "Downloaded size: $ACTUAL_SIZE bytes"
-          echo "Expected size:   $SIZE bytes"
 
           if [[ "$ACTUAL_SIZE" != "$SIZE" ]]; then
             echo "::error::Downloaded patch size does not match the GitHub release asset."
             echo "::error::Expected $SIZE bytes but received $ACTUAL_SIZE bytes."
-            echo "::error::GitHub/CDN may still be serving an older cached asset."
             exit 1
           fi
 
-          echo "Patch size verified successfully."
-
-          # -----------------------------------------------------
-          # CALCULATE SHA256
-          # -----------------------------------------------------
           SHA="$(sha256sum "/tmp/$NAME" | awk '{print $1}')"
-
-          echo "SHA256: $SHA"
-
-          # -----------------------------------------------------
-          # FINAL CLIENT DOWNLOAD URL
-          #
-          # Include both the asset ID and SHA.
-          #
-          # This ensures clients receive a unique URL whenever a
-          # release asset is replaced, even when the filename and
-          # release version remain the same.
-          # -----------------------------------------------------
           DOWNLOAD_URL="${URL}?asset_id=${ASSET_ID}&sha256=${SHA}"
 
-          echo "Client download URL:"
-          echo "$DOWNLOAD_URL"
+          echo "SHA256: $SHA"
+          echo "Client download URL: $DOWNLOAD_URL"
 
-          # -----------------------------------------------------
-          # BUILD PACKAGE JSON
-          # -----------------------------------------------------
           PACKAGE_JSON="$(
             jq -n \
               --arg version "$VERSION" \
@@ -169,9 +108,6 @@ jobs:
               }'
           )"
 
-          # -----------------------------------------------------
-          # VERSION COMPARISON
-          # -----------------------------------------------------
           version_ge() {
             [[ "$(
               printf '%s\n%s\n' "$1" "$2" |
@@ -180,14 +116,8 @@ jobs:
             )" == "$2" ]]
           }
 
-          # -----------------------------------------------------
-          # v0.4.0
-          #
-          # Permanent legacy bridge and clean base.
-          # -----------------------------------------------------
           if [[ "$VERSION" == "0.4.0" ]]; then
-
-            echo "Publishing v0.4.0 as the permanent legacy bridge and new clean base."
+            echo "Publishing v0.4.0 as the permanent legacy bridge and clean base."
 
             jq \
               --arg version "$VERSION" \
@@ -208,38 +138,64 @@ jobs:
               update_manifest.json \
               > update_manifest.tmp
 
-          # -----------------------------------------------------
-          # v0.4.0+
-          #
-          # Cumulative overlay for the current base.
-          #
-          # The original v0.4.0 legacy bridge stays permanently
-          # available for older installations.
-          # -----------------------------------------------------
-          elif version_ge "$VERSION" "0.4.0"; then
+          elif [[ "$VERSION" == "0.5.0" ]]; then
+            echo "Promoting v0.5.0 through the first-stage bootstrap."
+            echo "The old patch field remains pinned to v0.4.0 for pre-v0.4 updaters."
 
-            echo "Publishing a v0.4.0+ overlay while keeping the v0.4.0 bridge pinned."
+            # IMPORTANT:
+            # v0.5.0 changes startup/UI infrastructure. A normal current_patch is
+            # mounted by UpdateManager, which is too late for an older executable's
+            # already-cached startup scene. Treat v0.5.0 as the next bootstrap base
+            # instead. v0.4.0 clients therefore install this PCK through
+            # active_patch_path, letting UpdateBootstrap mount it BEFORE the newer
+            # UpdateManager and other autoloads are instantiated.
+            jq \
+              --arg version "$VERSION" \
+              --argjson package "$PACKAGE_JSON" \
+              '
+              .latest_version = $version
+              | .base_version = (.base_version // "0.1.0")
+              | .current_base_version = "0.5.0"
+              | .legacy_bridge = $package
+              | .current_patch = {
+                  version: "0.5.0",
+                  url: "",
+                  sha256: "",
+                  size_bytes: 0
+                }
+              ' \
+              update_manifest.json \
+              > update_manifest.tmp
+
+          elif version_ge "$VERSION" "0.5.0"; then
+            echo "Publishing a v0.5.0+ overlay while keeping the v0.5.0 bootstrap base pinned."
 
             jq \
               --arg version "$VERSION" \
               --argjson package "$PACKAGE_JSON" \
               '
               .latest_version = $version
-              | .current_base_version = (
-                  .current_base_version // "0.4.0"
-                )
+              | .current_base_version = (.current_base_version // "0.5.0")
               | .current_patch = $package
               ' \
               update_manifest.json \
               > update_manifest.tmp
 
-          # -----------------------------------------------------
-          # PRE-v0.4.0
-          #
-          # Original legacy cumulative patch system.
-          # -----------------------------------------------------
-          else
+          elif version_ge "$VERSION" "0.4.0"; then
+            echo "Publishing a v0.4.x overlay while keeping the v0.4.0 bridge pinned."
 
+            jq \
+              --arg version "$VERSION" \
+              --argjson package "$PACKAGE_JSON" \
+              '
+              .latest_version = $version
+              | .current_base_version = (.current_base_version // "0.4.0")
+              | .current_patch = $package
+              ' \
+              update_manifest.json \
+              > update_manifest.tmp
+
+          else
             echo "Publishing a pre-v0.4.0 legacy cumulative patch."
 
             jq \
@@ -251,22 +207,13 @@ jobs:
               ' \
               update_manifest.json \
               > update_manifest.tmp
-
           fi
 
           mv update_manifest.tmp update_manifest.json
 
-          echo ""
-          echo "=========================================="
-          echo "Generated update_manifest.json"
-          echo "=========================================="
+          echo "Generated update_manifest.json:"
           cat update_manifest.json
-          echo ""
-          echo "=========================================="
 
-      # =========================================================
-      # COMMIT + PUSH
-      # =========================================================
       - name: Commit updated manifest
         shell: bash
         run: |
@@ -283,39 +230,19 @@ jobs:
           fi
 
           VERSION="$(jq -r '.latest_version' update_manifest.json)"
-
           git commit -m "Update manifest for v$VERSION"
 
-          # -----------------------------------------------------
-          # SAFE PUSH WITH RETRIES
-          #
-          # main may have changed while the workflow was
-          # downloading and hashing the PCK.
-          #
-          # Fetch and rebase before pushing instead of force
-          # pushing over newer commits.
-          # -----------------------------------------------------
           for ATTEMPT in 1 2 3; do
-
-            echo ""
             echo "Push attempt $ATTEMPT of 3..."
-
             git fetch origin main
             git rebase origin/main
 
             if git push origin HEAD:main; then
-              echo ""
-              echo "=========================================="
               echo "Manifest successfully updated for v$VERSION."
-              echo "=========================================="
               exit 0
             fi
 
-            echo "main changed before the push completed."
-            echo "Fetching latest main and trying again..."
-
             sleep 3
-
           done
 
           echo "::error::Could not push update_manifest.json after 3 attempts."
