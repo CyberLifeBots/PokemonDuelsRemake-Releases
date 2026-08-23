@@ -42,6 +42,8 @@ jobs:
             TAG="${{ inputs.tag }}"
           fi
 
+          # Always re-fetch the release so assets uploaded/replaced after the
+          # release was first published are included.
           RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
           VERSION="${TAG#v}"
 
@@ -71,8 +73,8 @@ jobs:
 
             echo "Preparing $name ($size bytes)" >&2
 
-            # Hash the exact GitHub asset through the API. The manifest still gets
-            # the normal browser_download_url, with no query-string cache hacks.
+            # Hash the exact GitHub asset through the API. The game receives the
+            # normal browser_download_url with no query-string cache workaround.
             gh api \
               -H "Accept: application/octet-stream" \
               "repos/${GITHUB_REPOSITORY}/releases/assets/${asset_id}" \
@@ -122,10 +124,10 @@ jobs:
               | .patch = $package
               | .legacy_bridge = $package
               | .full = {
-                  version: "0.1.0",
-                  url: "",
-                  sha256: "",
-                  size_bytes: 0
+                  version: "0.4.0",
+                  windows: {version:"0.4.0", url:"", sha256:"", size_bytes:0},
+                  macos: {version:"0.4.0", url:"", sha256:"", size_bytes:0},
+                  android: {version:"0.4.0", url:"", sha256:"", size_bytes:0}
                 }
               | .current_patch = {
                   version: "0.4.0",
@@ -138,42 +140,51 @@ jobs:
 
           # -----------------------------------------------------
           # v0.5.0
-          # FULL BASE TRANSITION.
+          # CROSS-PLATFORM FULL BASE TRANSITION.
           #
-          # Required assets on the v0.5.0 release:
-          #   *_bridge_patch.pck   -> tiny updater-only patch made from v0.4.0
-          #   *_windows_full.zip   -> complete v0.5.0 Windows build ZIP
+          # Required v0.5.0 assets:
+          #   *_bridge_patch.pck
+          #   *_windows_full.zip
+          #   *_macos_full.zip
+          #   *_android_full.apk
           #
-          # The internal bridge version is 0.4.1. It is not a public gameplay
-          # release; it exists only so already-shipped v0.4.0 clients learn how
-          # to download/install the full v0.5.0 build.
+          # The bridge version is intentionally 0.4.1. It contains only the
+          # newer UpdateManager and teaches already-shipped 0.4.0 clients how
+          # to select the correct complete build for their platform.
           # -----------------------------------------------------
           elif [[ "$VERSION" == "0.5.0" ]]; then
             BRIDGE_ASSET="$(newest_asset_matching '.name | endswith("_bridge_patch.pck")')"
-            FULL_ASSET="$(newest_asset_matching '.name | endswith("_windows_full.zip")')"
+            WINDOWS_ASSET="$(newest_asset_matching '.name | endswith("_windows_full.zip")')"
+            MACOS_ASSET="$(newest_asset_matching '.name | endswith("_macos_full.zip")')"
+            ANDROID_ASSET="$(newest_asset_matching '.name | endswith("_android_full.apk")')"
 
-            if [[ "$BRIDGE_ASSET" == "null" ]]; then
-              echo "::error::v0.5.0 requires a *_bridge_patch.pck asset." >&2
-              exit 1
-            fi
-            if [[ "$FULL_ASSET" == "null" ]]; then
-              echo "::error::v0.5.0 requires a *_windows_full.zip asset." >&2
-              exit 1
-            fi
+            [[ "$BRIDGE_ASSET" != "null" ]] || { echo "::error::v0.5.0 requires a *_bridge_patch.pck asset." >&2; exit 1; }
+            [[ "$WINDOWS_ASSET" != "null" ]] || { echo "::error::v0.5.0 requires a *_windows_full.zip asset." >&2; exit 1; }
+            [[ "$MACOS_ASSET" != "null" ]] || { echo "::error::v0.5.0 requires a *_macos_full.zip asset." >&2; exit 1; }
+            [[ "$ANDROID_ASSET" != "null" ]] || { echo "::error::v0.5.0 requires a *_android_full.apk asset." >&2; exit 1; }
 
             BRIDGE_PACKAGE="$(package_from_asset "$BRIDGE_ASSET" "0.4.1")"
-            FULL_PACKAGE="$(package_from_asset "$FULL_ASSET" "0.5.0")"
+            WINDOWS_PACKAGE="$(package_from_asset "$WINDOWS_ASSET" "0.5.0")"
+            MACOS_PACKAGE="$(package_from_asset "$MACOS_ASSET" "0.5.0")"
+            ANDROID_PACKAGE="$(package_from_asset "$ANDROID_ASSET" "0.5.0")"
 
             jq \
               --arg version "$VERSION" \
               --argjson bridge "$BRIDGE_PACKAGE" \
-              --argjson full "$FULL_PACKAGE" \
+              --argjson windows "$WINDOWS_PACKAGE" \
+              --argjson macos "$MACOS_PACKAGE" \
+              --argjson android "$ANDROID_PACKAGE" \
               '
               .latest_version = $version
               | .base_version = (.base_version // "0.1.0")
               | .current_base_version = "0.5.0"
               | .legacy_bridge = $bridge
-              | .full = $full
+              | .full = {
+                  version: "0.5.0",
+                  windows: $windows,
+                  macos: $macos,
+                  android: $android
+                }
               | .current_patch = {
                   version: "0.5.0",
                   url: "",
@@ -185,8 +196,8 @@ jobs:
 
           # -----------------------------------------------------
           # v0.5.1+
-          # Normal cumulative PCK overlays based on the clean v0.5.0 base.
-          # Keep the v0.4 updater bridge and v0.5 full ZIP pinned.
+          # Normal cumulative PCK overlays based on clean v0.5.0.
+          # The bridge + full platform builds stay pinned in the manifest.
           # -----------------------------------------------------
           elif version_ge "$VERSION" "0.5.0"; then
             PATCH_ASSET="$(newest_asset_matching '(.name | endswith("_patch.pck")) and ((.name | endswith("_bridge_patch.pck")) | not)')"
@@ -209,7 +220,7 @@ jobs:
               update_manifest.json > update_manifest.tmp
 
           # -----------------------------------------------------
-          # v0.4.x (before the v0.5 transition)
+          # v0.4.x before the v0.5 base transition.
           # -----------------------------------------------------
           elif version_ge "$VERSION" "0.4.0"; then
             PATCH_ASSET="$(newest_asset_matching '.name | endswith("_patch.pck")')"
@@ -226,7 +237,7 @@ jobs:
               update_manifest.json > update_manifest.tmp
 
           # -----------------------------------------------------
-          # pre-v0.4.0 legacy cumulative system
+          # pre-v0.4.0 legacy cumulative system.
           # -----------------------------------------------------
           else
             PATCH_ASSET="$(newest_asset_matching '.name | endswith("_patch.pck")')"
@@ -267,7 +278,7 @@ jobs:
           git commit -m "Update manifest for v$VERSION"
 
           for ATTEMPT in 1 2 3; do
-            echo "Push attempt $ATTEMPT of 3..."
+            echo "Push attempt $ATTEMPT..."
             git fetch origin main
             git rebase origin/main
 
@@ -279,5 +290,5 @@ jobs:
             sleep 3
           done
 
-          echo "::error::Could not push update_manifest.json after 3 attempts."
+          echo "::error::Could not push manifest after 3 attempts."
           exit 1
