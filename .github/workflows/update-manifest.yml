@@ -14,23 +14,28 @@ on:
 permissions:
   contents: write
 
+# Prevent two manifest workflows from trying to update main at the same time.
+concurrency:
+  group: update-patch-manifest
+  cancel-in-progress: false
+
 jobs:
   update-manifest:
     runs-on: ubuntu-latest
 
     steps:
-      # ---------------------------------------------------------
+      # =========================================================
       # CHECKOUT
-      # ---------------------------------------------------------
+      # =========================================================
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
 
-      # ---------------------------------------------------------
+      # =========================================================
       # GENERATE MANIFEST
-      # ---------------------------------------------------------
+      # =========================================================
       - name: Generate update manifest
         shell: bash
         env:
@@ -51,11 +56,13 @@ jobs:
 
           VERSION="${TAG#v}"
 
+          echo "=========================================="
           echo "Release tag: $TAG"
           echo "Detected version: $VERSION"
+          echo "=========================================="
 
           # -----------------------------------------------------
-          # FIND PATCH
+          # FIND PATCH ASSET
           # -----------------------------------------------------
           ASSET="$(
             jq -c \
@@ -71,9 +78,26 @@ jobs:
           NAME="$(jq -r '.name' <<< "$ASSET")"
           URL="$(jq -r '.browser_download_url' <<< "$ASSET")"
           SIZE="$(jq -r '.size' <<< "$ASSET")"
+          ASSET_ID="$(jq -r '.id' <<< "$ASSET")"
 
           echo "Patch file: $NAME"
-          echo "Patch size: $SIZE bytes"
+          echo "GitHub asset ID: $ASSET_ID"
+          echo "Manifest asset size: $SIZE bytes"
+
+          # -----------------------------------------------------
+          # CACHE-BUSTED DOWNLOAD URL
+          #
+          # If an asset is deleted and replaced with the exact
+          # same filename, GitHub/CDN may temporarily serve an
+          # older cached copy.
+          #
+          # The GitHub asset ID changes whenever the asset is
+          # replaced, making this URL unique.
+          # -----------------------------------------------------
+          VERIFY_URL="${URL}?asset_id=${ASSET_ID}"
+
+          echo "Verification URL:"
+          echo "$VERIFY_URL"
 
           # -----------------------------------------------------
           # DOWNLOAD PATCH
@@ -81,9 +105,31 @@ jobs:
           curl \
             -L \
             --fail \
-            --retry 3 \
-            "$URL" \
+            --retry 5 \
+            --retry-delay 2 \
+            -H "Cache-Control: no-cache" \
+            "$VERIFY_URL" \
             -o "/tmp/$NAME"
+
+          # -----------------------------------------------------
+          # VERIFY ACTUAL FILE SIZE
+          #
+          # Do NOT generate a manifest if GitHub gave the workflow
+          # a stale/cached asset.
+          # -----------------------------------------------------
+          ACTUAL_SIZE="$(stat -c%s "/tmp/$NAME")"
+
+          echo "Downloaded size: $ACTUAL_SIZE bytes"
+          echo "Expected size:   $SIZE bytes"
+
+          if [[ "$ACTUAL_SIZE" != "$SIZE" ]]; then
+            echo "::error::Downloaded patch size does not match the GitHub release asset."
+            echo "::error::Expected $SIZE bytes but received $ACTUAL_SIZE bytes."
+            echo "::error::GitHub/CDN may still be serving an older cached asset."
+            exit 1
+          fi
+
+          echo "Patch size verified successfully."
 
           # -----------------------------------------------------
           # CALCULATE SHA256
@@ -93,12 +139,26 @@ jobs:
           echo "SHA256: $SHA"
 
           # -----------------------------------------------------
+          # FINAL CLIENT DOWNLOAD URL
+          #
+          # Include both the asset ID and SHA.
+          #
+          # This ensures clients receive a unique URL whenever a
+          # release asset is replaced, even when the filename and
+          # release version remain the same.
+          # -----------------------------------------------------
+          DOWNLOAD_URL="${URL}?asset_id=${ASSET_ID}&sha256=${SHA}"
+
+          echo "Client download URL:"
+          echo "$DOWNLOAD_URL"
+
+          # -----------------------------------------------------
           # BUILD PACKAGE JSON
           # -----------------------------------------------------
           PACKAGE_JSON="$(
             jq -n \
               --arg version "$VERSION" \
-              --arg url "$URL" \
+              --arg url "$DOWNLOAD_URL" \
               --arg sha "$SHA" \
               --argjson size "$SIZE" \
               '{
@@ -123,7 +183,7 @@ jobs:
           # -----------------------------------------------------
           # v0.4.0
           #
-          # Permanent legacy bridge + clean base.
+          # Permanent legacy bridge and clean base.
           # -----------------------------------------------------
           if [[ "$VERSION" == "0.4.0" ]]; then
 
@@ -151,8 +211,10 @@ jobs:
           # -----------------------------------------------------
           # v0.4.0+
           #
-          # Normal cumulative overlay for the new base.
-          # Keeps the v0.4.0 bridge permanently pinned.
+          # Cumulative overlay for the current base.
+          #
+          # The original v0.4.0 legacy bridge stays permanently
+          # available for older installations.
           # -----------------------------------------------------
           elif version_ge "$VERSION" "0.4.0"; then
 
@@ -174,7 +236,7 @@ jobs:
           # -----------------------------------------------------
           # PRE-v0.4.0
           #
-          # Legacy cumulative update system.
+          # Original legacy cumulative patch system.
           # -----------------------------------------------------
           else
 
@@ -195,12 +257,16 @@ jobs:
           mv update_manifest.tmp update_manifest.json
 
           echo ""
-          echo "Generated update_manifest.json:"
+          echo "=========================================="
+          echo "Generated update_manifest.json"
+          echo "=========================================="
           cat update_manifest.json
+          echo ""
+          echo "=========================================="
 
-      # ---------------------------------------------------------
-      # COMMIT + SAFELY PUSH
-      # ---------------------------------------------------------
+      # =========================================================
+      # COMMIT + PUSH
+      # =========================================================
       - name: Commit updated manifest
         shell: bash
         run: |
@@ -211,7 +277,6 @@ jobs:
 
           git add update_manifest.json
 
-          # Nothing changed, so there is nothing to commit.
           if git diff --cached --quiet; then
             echo "Manifest is already up to date."
             exit 0
@@ -222,18 +287,36 @@ jobs:
           git commit -m "Update manifest for v$VERSION"
 
           # -----------------------------------------------------
-          # IMPORTANT:
-          # main may have changed while this workflow was running.
+          # SAFE PUSH WITH RETRIES
           #
-          # Fetch the newest main branch and place our manifest
-          # commit on top of it instead of force-pushing.
+          # main may have changed while the workflow was
+          # downloading and hashing the PCK.
+          #
+          # Fetch and rebase before pushing instead of force
+          # pushing over newer commits.
           # -----------------------------------------------------
-          git fetch origin main
-          git rebase origin/main
+          for ATTEMPT in 1 2 3; do
 
-          # -----------------------------------------------------
-          # PUSH
-          # -----------------------------------------------------
-          git push origin HEAD:main
+            echo ""
+            echo "Push attempt $ATTEMPT of 3..."
 
-          echo "Manifest successfully updated for v$VERSION."
+            git fetch origin main
+            git rebase origin/main
+
+            if git push origin HEAD:main; then
+              echo ""
+              echo "=========================================="
+              echo "Manifest successfully updated for v$VERSION."
+              echo "=========================================="
+              exit 0
+            fi
+
+            echo "main changed before the push completed."
+            echo "Fetching latest main and trying again..."
+
+            sleep 3
+
+          done
+
+          echo "::error::Could not push update_manifest.json after 3 attempts."
+          exit 1
