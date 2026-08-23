@@ -19,8 +19,8 @@
   "legacy_bridge": {
     "version": "0.5.0",
     "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.5.0/PokemonDuelsRemake_0.5.0_patch.pck",
-    "sha256": "aa07d668967604b485c518aa49ab593c309a76566e6401d707c041fc0964071e",
-    "size_bytes": 1350247760
+    "sha256": "6fd617e454c4f2867c9d4f3128151b3f70a315f62a44aa414755657a5e5ec482",
+    "size_bytes": 1350250608
   },
   "current_patch": {
     "version": "0.5.0",
