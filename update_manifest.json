@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "latest_version": "0.5.0",
+  "latest_version": "0.4.0",
   "base_version": "0.1.0",
   "mandatory": false,
   "patch": {
@@ -10,35 +10,20 @@
     "size_bytes": 1877913864
   },
   "full": {
-    "version": "0.5.0",
-    "windows": {
-      "version": "0.5.0",
-      "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.5.0/PokemonDuelsRemake_0.5.0_windows_full.zip",
-      "sha256": "ec7b489246f52b7f65dcffb36425da870ba3d314228d93adcc028fa682d4096a",
-      "size_bytes": 755990946
-    },
-    "macos": {
-      "version": "0.5.0",
-      "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.5.0/PokemonDuelsRemake_0.5.0_macos_full.zip",
-      "sha256": "e5deeb05e2d3f28407f57d802aeee2743504dcc3d05406c2896c0467ddfbab23",
-      "size_bytes": 782426617
-    },
-    "android": {
-      "version": "0.5.0",
-      "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.5.0/PokemonDuelsRemake_0.5.0_android_full.apk",
-      "sha256": "ebca3f8e59cf615860228d14147a88c28fd04b0c8b1a46ba45d6b155ef35400d",
-      "size_bytes": 1376070509
-    }
+    "version": "0.1.0",
+    "url": "",
+    "sha256": "",
+    "size_bytes": 0
   },
-  "current_base_version": "0.5.0",
+  "current_base_version": "0.4.0",
   "legacy_bridge": {
-    "version": "0.4.1",
-    "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.5.0/PokemonDuelsRemake_0.5.0_bridge_patch.pck",
-    "sha256": "52530c1543eea8f8fa8916c260582630bd81fe263f276a04c99c648a3ef8058b",
-    "size_bytes": 2227364
+    "version": "0.4.0",
+    "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.4.0/PokemonDuelsRemake_0.4.0_patch.pck",
+    "sha256": "9be3114b485cfca4cf7003149d39a523ba17f4196f6b04d31cbfa5619c2144b3",
+    "size_bytes": 1877913864
   },
   "current_patch": {
-    "version": "0.5.0",
+    "version": "0.4.0",
     "url": "",
     "sha256": "",
     "size_bytes": 0
