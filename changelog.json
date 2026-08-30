@@ -16,11 +16,11 @@
         "⚙️ UI & SETTINGS",
         "Various additional UI improvements and fixes based on recently reported issues.",
         "Fixed excessive empty spacing in the Plate Library preview panel.",
-        "Added streamer mode in settings. Hides the team name when searching in online matchmaking."
+        "Added streamer mode in settings. Hides the team name when searching in online matchmaking.",
 
         "🐛 ADDITIONAL FIXES",
         "Various additional bug fixes and UI improvements.",
-        "Fixed Android crash when changing the menu music."
+        "Fixed Android crash when changing the menu music.",
 
         "📜 PATCH NOTES",
         "View previous Patch Notes and follow development on Discord:",
