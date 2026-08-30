@@ -21,6 +21,7 @@
         "Sphere plates are now indicated on the Pokemon card of the selected pokemon.",
         "Users can now login using their emails instead of their username.",
         "Users can now change their username and add special characters.",
+        "Add minimum won and maximum lost points in ranked (min : +20, max : -15).",
 
         "🐛 ADDITIONAL FIXES",
         "Various additional bug fixes and UI improvements.",
