@@ -1,7 +1,7 @@
 {
   "entries": [
     {
-      "version": "0.6.1",
+      "version": "0.6.2",
       "title": "Bring Back The Oldies",
       "changes": [
         "🗺️ NEW CONTENT",
@@ -19,6 +19,8 @@
         "Added streamer mode in settings. Hides the team name when searching in online matchmaking.",
         "Player username shows on the plate passives and player turn indicator instead of player 1 and player 2.",
         "Sphere plates are now indicated on the Pokemon card of the selected pokemon.",
+        "Users can now login using their emails instead of their username.",
+        "Users can now change their username and add special characters.",
 
         "🐛 ADDITIONAL FIXES",
         "Various additional bug fixes and UI improvements.",
