@@ -1,36 +1,124 @@
 {
-  "entries": [
-    {
-      "version": "0.6.2",
-      "title": "Bring Back The Oldies",
-      "changes": [
-        "🗺️ NEW CONTENT",
-        "Added a special new map with its own unique presentation and features.",
-        "Added new special options to the Settings menu for additional customization.",
+"entries": [
+{
+"version": "0.6...",
+"title": "Bring Back The Oldies",
+"changes": [
+"🗺️ NEW CONTENT",
+"Added a special new map with its own unique presentation and features.",
+"Added new special options to the Settings menu for additional customization.",
 
-        "⚔️ BATTLE FIXES",
-        "Fixed White and Gold moves with equal final damage not activating their effects correctly.",
-        "Fixed Sacred Fire not correctly burning the battle opponent.",
-        "Fixed certain move-effect indicators not displaying correctly in figure previews.",
+    "🗺️ MAP & VISUAL FIXES",
+    "Fixed several effects on the Original Map appearing underneath the board on the opponent's side.",
+    "Fixed Plate activation effects and battle wheel animations being hidden beneath the Original Map.",
+    "Restored Entry Point and Goal icons to their proper board-level position.",
+    "Improved rendering of the Original Map so effects display consistently on both sides of the board.",
 
-        "⚙️ UI & SETTINGS",
-        "Various additional UI improvements and fixes based on recently reported issues.",
-        "Fixed excessive empty spacing in the Plate Library preview panel.",
-        "Added streamer mode in settings. Hides the team name when searching in online matchmaking.",
-        "Player username shows on the plate passives and player turn indicator instead of player 1 and player 2.",
-        "Sphere plates are now indicated on the Pokemon card of the selected pokemon.",
-        "Users can now login using their emails instead of their username.",
-        "Users can now change their username and add special characters.",
-        "Add minimum won and maximum lost points in ranked (min : +20, max : -15).",
+    "⚔️ BATTLE FIXES",
+    "Fixed White and Gold moves with equal final damage not activating their effects correctly.",
+    "Fixed Sacred Fire not correctly burning the battle opponent.",
+    "Fixed certain move-effect indicators not displaying correctly in figure previews.",
+    "Fixed Pokémon attacking from 2 or more spaces away being affected by opposing Attack effects that should not reach them.",
+    "Fixed effects such as Grass Knot incorrectly knocking out a Pokémon attacking from Range 2+.",
+    "Fixed Force Remove not properly excluding defeated Pokémon.",
+    "Force Remove now activates before knockout-related form changes and prevents those transformations when the Pokémon is being excluded.",
+    "Knockouts caused by attacks such as Destiny Bond and Double-Edge can once again trigger appropriate evolution, devolution, or form-change effects.",
+    "Pokémon sent specifically to the Bench, P.C., or Excluded by a move do not receive knockout-based form-change protection.",
+    "Pokémon now recover from Special Conditions when changing form.",
+    "Damage increases and reductions are now applied before Double Chance and similar respin prompts.",
+    "If a respin occurs, all applicable damage buffs and reductions are recalculated for the new Attack.",
+    "Fixed Mega Ampharos – Homeward Lights failing to properly activate a second time when Mega Evolution ends.",
+    "Fixed Alolan Raichu – Cosmic Surfer displaying invalid movement destinations.",
+    "Fixed Cosmic Surfer accidentally treating Alolan Raichu itself as part of its Electric Pokémon chain.",
+    "Fixed Mawile – Trickery so shifting the wheel is optional as intended.",
+    "Trickery now asks the player whether they want to shift the result when it lands.",
+    "Fixed Bergmite – Ice Scramble incorrectly protecting Bergmite itself from being tagged while Frozen.",
+    "Improved several knockout and form-change interactions.",
 
-        "🐛 ADDITIONAL FIXES",
-        "Various additional bug fixes and UI improvements.",
-        "Fixed Android crash when changing the menu music.",
+    "💿 PLATE FIXES",
+    "Fixed Restorer failing to properly recognize Amaura as a Restored Pokémon.",
+    "Fixed Winged Sphere failing to allow eligible evolved Bug/Flying Pokémon such as Butterfree to move over opposing non-Flying Pokémon.",
+    "Improved Stage 1+ detection for Plate effects.",
+    "Sphere Plate effects are now indicated on the Pokémon card of affected Pokémon.",
+    "Improved Sphere Plate passive information shown on affected Pokémon cards.",
 
-        "📜 PATCH NOTES",
-        "View previous Patch Notes and follow development on Discord:",
-        "https://discord.com/invite/dzVEA5jxgD"
-      ]
-    }
+    "✨ FORM CHANGE PERFORMANCE",
+    "Significantly reduced the freeze that could occur when activating Ultra Burst.",
+    "Form-changing Plates now search only the relevant Pokémon resources instead of unnecessarily loading the entire figure library.",
+
+    "🏆 RANKED MATCH FIXES",
+    "Improved Ranked stability when a player unexpectedly closes the game or disconnects.",
+    "When an opponent disconnects during an active Ranked duel, the match now pauses and gives them 60 seconds to reconnect.",
+    "A visible reconnect countdown is displayed to the remaining player.",
+    "If the disconnected player does not return, they receive the loss and the connected player receives the win.",
+    "Players can now search for and reconnect to an unfinished Ranked match after reopening the game.",
+    "Added additional safeguards preventing the player who remained connected from accidentally receiving the loss.",
+    "Main Menu and Quit Game are disabled during an active Ranked match; players must explicitly use Forfeit Match.",
+    "Fixed opponents leaving after MATCH OVER incorrectly starting another reconnect countdown.",
+    "Fixed Ranked matches becoming stuck indefinitely on Finalizing Ranked Result.",
+    "Improved protection against disconnect events changing a result that had already been determined.",
+    "Improved Ranked matchmaking reliability when many players are searching simultaneously.",
+    "Fixed cases where players could receive Too Many Requests while searching for Ranked matches.",
+    "Fixed Zoroark's Cross Counter incorrectly knocking out Pokémon that should not be affected.",
+    "Fixed Thundurus's ability not correctly preventing opposing Pokémon that MP moved next to it that turn from attacking.",
+    "Fixed Eevee's evolution selection becoming stuck after knocking out a Pokémon and triggering an evolution choice.",
+
+    "📈 RANKED RATING",
+    "Ranked wins now award a minimum of +20 RP.",
+    "Ranked losses now remove a maximum of 15 RP.",
+    "Draws now always result in 0 RP gained or lost.",
+    "Elo/rating difference calculations are still used whenever they produce values within those limits.",
+
+    "👤 RANKED PLAYER INFORMATION",
+    "Recent Ranked Matches now show the opponent's Rank Points.",
+    "Hovering a recent opponent now displays their player profile.",
+    "Player profiles include useful Ranked information such as rank, rating, W/L/D, and favorite Pokémon.",
+    "Opponent Rank Points are now displayed underneath their username during Ranked battles.",
+    "Online turn indicators and Plate passive displays now use player usernames instead of Player 1 / Player 2.",
+    "Online turn indicators now display YOUR TURN and OPPONENT'S TURN where appropriate.",
+    "Offline matches continue using Player 1 / Player 2.",
+
+    "🎮 UI & QUALITY OF LIFE",
+    "Added an EXCLUDED viewer above Ultra Space.",
+    "Excluded Pokémon are displayed as their actual figures, similar to Ultra Space.",
+    "The Excluded viewer safely handles matches where no Pokémon have been excluded.",
+    "Hovering Pokémon in the Team Builder now displays their full Pokémon card.",
+    "Added a Fullscreen option for desktop players.",
+    "Added Streamer Mode to Settings, which hides the team name while searching in online matchmaking.",
+    "Fixed excessive empty spacing in the Plate Library preview panel.",
+    "Improved several Pokémon card hover displays and information panels.",
+    "Various additional UI improvements and fixes based on recently reported issues.",
+
+    "🩺 STATUS & MARKER INFORMATION",
+    "Pokémon cards now show active Special Conditions and markers.",
+    "Hovering an affected Pokémon now explains what its current conditions actually do.",
+    "Added information for Burn, Poison, Noxious, Paralysis, Sleep, Frozen, and Confusion.",
+    "Added information for numerous gameplay markers and temporary effects.",
+    "Countdown-based effects display their remaining duration directly on the Pokémon card.",
+    "Status and marker information updates while the card remains open.",
+
+    "👤 ACCOUNT IMPROVEMENTS",
+    "Users can now log in using their email address instead of only their username.",
+    "Users can now change their username.",
+    "Usernames now support special characters.",
+
+    "🎵 AUDIO & SETTINGS",
+    "Reworked the menu music selector to behave more consistently on Android.",
+    "The menu music dropdown now uses the same custom dropdown style as the in-battle selector.",
+    "Fixed an Android crash when changing the menu music.",
+    "Improved Android handling when switching between Pokémon Duel Remake and Original menu music.",
+    "Improved consistency between the Settings menu and battle Settings UI.",
+
+    "🐛 ADDITIONAL FIXES",
+    "Fixed several UI elements remaining active or displaying incorrect information after Ranked matches.",
+    "Improved handling of form changes, knockout replacements, movement abilities, and Plate effects.",
+    "Various additional stability, bug fixes, and interface improvements based on player reports.",
+
+    "📜 PATCH NOTES",
+    "View previous Patch Notes and follow development on Discord:",
+    "https://discord.com/invite/dzVEA5jxgD"
   ]
+}
+
+]
 }
