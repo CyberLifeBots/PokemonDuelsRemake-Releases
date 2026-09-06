@@ -1,19 +1,42 @@
 {
   "entries": [
     {
-      "version": "0.7...",
+      "version": "0.7.2",
+      "title": "Match Replays and player-reported gameplay fixes.",
+      "changes": [
+        "🎬 MATCH REPLAYS",
+        "Added Replay support for recent matches. (Starting 0.7.2)",
+        "⚔️ GAMEPLAY FIXES",
+        "Fixed Empoleon – Diving Entry not working correctly on the opening turn.",
+        "Fixed Swords Dance stacking its multiplier multiple times. Spinning Swords Dance repeatedly now still results in a maximum ×2 damage multiplier.",
+        "Fixed Dragon Tail effects not resolving correctly when losing against eligible White or Gold Attacks.",
+        "Fixed 4-D Drive effects not resolving correctly when losing against eligible White or Gold Attacks.",
+        "Fixed Sunsteel Strike not sending the opposing Pokémon to the P.C. when its effect should activate against White or Gold results.",
+        "Fixed Abyssal Grip sending the wrong Pokémon to the P.C.",
+        "Fixed Heracross – Mud Shot not applying its intended MP −1 effect.",
+        "Fixed Avalugg effects incorrectly applying while Avalugg was on the Bench instead of requiring it to be on the field.",
+        "Fixed qualifying knockouts sometimes failing to trigger the appropriate Evolution opportunity.",
+        "💿 PLATE FIXES",
+        "Fixed Eon Flute sometimes being unavailable when an excluded Latias or Latios was a valid target.",
+        "Separated Mega Evolution Plates into their own category in the Plate Library filters.",
+        "🔄 POSITION-SWAPPING FIXES",
+        "Fixed the Volt Switch choice prompt displaying the wrong effect name.",
+        "Fixed Volt Switch when switching with a Pokémon from the P.C. The Volt Switch user now correctly goes to the P.C. instead of the Bench.",
+        "Fixed Gardevoir – Warp Hole when selecting a Pokémon from the P.C. The Pokémon being replaced now correctly goes to the P.C. instead of the Bench."
+      ]
+    },
+    {
+      "version": "0.7.0",
       "title": "Mobile improvements, library updates and form fixes.",
       "changes": [
         "🗺️ NEW CONTENT",
         "Added a special new map with its own unique presentation and features.",
         "Added new special options to the Settings menu for additional customization.",
-
         "🗺️ MAP & VISUAL FIXES",
         "Fixed several effects on the Original Map appearing underneath the board on the opponent's side.",
         "Fixed Plate activation effects and battle wheel animations being hidden beneath the Original Map.",
         "Restored Entry Point and Goal icons to their proper board-level position.",
         "Improved rendering of the Original Map so effects display consistently on both sides of the board.",
-
         "⚔️ BATTLE FIXES",
         "Fixed White and Gold moves with equal final damage not activating their effects correctly.",
         "Fixed Sacred Fire not correctly burning the battle opponent.",
@@ -54,7 +77,6 @@
         "Form changes caused by Plates also commit the player to that Pokémon if they continue acting, but the player may still choose to End Turn.",
         "Abilities that explicitly end the turn after transforming continue to do so normally.",
         "Improved several knockout and form-change interactions.",
-
         "💿 PLATE FIXES",
         "Fixed Restorer failing to properly recognize Amaura as a Restored Pokémon.",
         "Fixed Winged Sphere failing to allow eligible evolved Bug/Flying Pokémon such as Butterfree to move over opposing non-Flying Pokémon.",
@@ -63,7 +85,6 @@
         "Improved Sphere Plate passive information shown on affected Pokémon cards.",
         "Gold Sphere now correctly recognizes Mega Evolution as an Evolution.",
         "Eligible Mega-Evolved Ground-type Pokémon can now have their White Attacks become Gold during their first battle after entering the field, as intended.",
-
         "✨ FORM CHANGE PERFORMANCE",
         "Significantly reduced the freeze that could occur when activating Ultra Burst.",
         "Form-changing Plates now search only the relevant Pokémon resources instead of unnecessarily loading the entire figure library.",
@@ -71,7 +92,6 @@
         "Form-changing Abilities and Plates can now use already-loaded form data instead of searching for forms during the duel.",
         "Ultra Necrozma is now prepared before the duel when Ultra Burst is equipped on a compatible team.",
         "Improved form-change loading and performance across multiple Pokémon and Plates.",
-
         "✨ NEW FORM SYSTEM",
         "Added optional form attachments to Team Builder.",
         "Players can choose whether certain optional forms are available to their Pokémon during battle.",
@@ -90,7 +110,6 @@
         "Improved King's Shield and Aegislash's Shield and Blade Forme switching.",
         "Improved automatic form reversion for Kyurem, Rotom, Necrozma, and other form-changing Pokémon.",
         "Form transformations now consistently use the shared transformation animation and Evolution/Devolution sound system.",
-
         "🏆 RANKED MATCH FIXES",
         "Improved Ranked stability when a player unexpectedly closes the game or disconnects.",
         "When an opponent disconnects during an active Ranked duel, the match now pauses and gives them 60 seconds to reconnect.",
@@ -107,13 +126,11 @@
         "Fixed Zoroark's Cross Counter incorrectly knocking out Pokémon that should not be affected.",
         "Fixed Thundurus's ability not correctly preventing opposing Pokémon that MP moved next to it that turn from attacking.",
         "Fixed Eevee's evolution selection becoming stuck after knocking out a Pokémon and triggering an evolution choice.",
-
         "📈 RANKED RATING",
         "Ranked wins now award a minimum of +20 RP.",
         "Ranked losses now remove a maximum of 15 RP.",
         "Draws now always result in 0 RP gained or lost.",
         "Elo/rating difference calculations are still used whenever they produce values within those limits.",
-
         "👤 RANKED PLAYER INFORMATION",
         "Recent Ranked Matches now show the opponent's Rank Points.",
         "Hovering a recent opponent now displays their player profile.",
@@ -122,11 +139,9 @@
         "Online turn indicators and Plate passive displays now use player usernames instead of Player 1 / Player 2.",
         "Online turn indicators now display YOUR TURN and OPPONENT'S TURN where appropriate.",
         "Offline matches continue using Player 1 / Player 2.",
-
         "🌐 ONLINE & MATCH IMPROVEMENTS",
         "The Duel Complete screen now displays the reason the duel ended.",
         "Added clearer match-end messages for Goal wins, Time Loss, Wait Loss, forfeits, disconnects, lost connections, match dodges, players leaving the match, and Turn Limit results.",
-
         "🤖 AI IMPROVEMENTS",
         "Improved AI decision-making during battles.",
         "Added additional checks for Pokémon abilities and movement effects when evaluating threats and defensive positions.",
@@ -137,7 +152,6 @@
         "The AI now avoids choosing an optional respin when its current Attack is already winning.",
         "If the AI is losing or tied, it may still choose to respin when appropriate.",
         "The AI also avoids voluntarily forcing an unnecessary respin when doing so would give up an already-winning result.",
-
         "🎮 UI & QUALITY OF LIFE",
         "Added an EXCLUDED viewer above Ultra Space.",
         "Excluded Pokémon are displayed as their actual figures, similar to Ultra Space.",
@@ -165,7 +179,6 @@
         "Fixed excessive empty spacing in the Plate Library preview panel.",
         "Improved several Pokémon card hover displays and information panels.",
         "Various additional UI improvements and fixes based on recently reported issues.",
-
         "📱 MOBILE IMPROVEMENTS",
         "Reworked Pokémon card interaction for touchscreen devices.",
         "Tapping a Pokémon on mobile now performs the normal gameplay action with a single tap while also opening its Pokémon card for inspection.",
@@ -179,12 +192,10 @@
         "Mobile card sizing adapts when necessary for smaller displays.",
         "Desktop Pokémon card hover behavior remains unchanged.",
         "Added the same touchscreen behavior in preparation for future iOS support.",
-
         "🍎 macOS IMPROVEMENTS",
         "Improved scrolling support for macOS trackpads.",
         "Added two-finger trackpad scrolling support to several scrollable menus and Pokémon information cards.",
         "Cleaned up a Figure Library 3D viewer camera warning that could appear when opening a model preview.",
-
         "🩺 STATUS & MARKER INFORMATION",
         "Pokémon cards now show active Special Conditions and markers.",
         "Hovering an affected Pokémon now explains what its current conditions actually do.",
@@ -192,24 +203,20 @@
         "Added information for numerous gameplay markers and temporary effects.",
         "Countdown-based effects display their remaining duration directly on the Pokémon card.",
         "Status and marker information updates while the card remains open.",
-
         "👤 ACCOUNT IMPROVEMENTS",
         "Users can now log in using their email address instead of only their username.",
         "Users can now change their username.",
         "Usernames now support special characters.",
-
         "🎵 AUDIO & SETTINGS",
         "Reworked the menu music selector to behave more consistently on Android.",
         "The menu music dropdown now uses the same custom dropdown style as the in-battle selector.",
         "Fixed an Android crash when changing the menu music.",
         "Improved Android handling when switching between Pokémon Duel Remake and Original menu music.",
         "Improved consistency between the Settings menu and battle Settings UI.",
-
         "📱 ANDROID UPDATE STABILITY",
         "Improved Android stability while downloading game updates.",
         "Reduced conflicting background network activity while update packages are being downloaded or verified.",
         "Prevented additional update checks from interfering with an update already in progress.",
-
         "🐛 ADDITIONAL FIXES",
         "Fixed several UI elements remaining active or displaying incorrect information after Ranked matches.",
         "Improved handling of form changes, knockout replacements, movement abilities, and Plate effects.",
@@ -218,7 +225,6 @@
         "Improved several interactions between form changes and turn-action restrictions.",
         "Improved touch input handling so Pokémon information can be viewed without interfering with normal battle controls.",
         "Various additional stability, bug fixes, and interface improvements based on player reports.",
-
         "📜 PATCH NOTES",
         "View previous Patch Notes and follow development on Discord:",
         "https://discord.com/invite/dzVEA5jxgD"
