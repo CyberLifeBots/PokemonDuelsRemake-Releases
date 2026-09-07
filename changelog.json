@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "0.7.5",
+      "title": "Figure leveling groundwork and additional player-reported fixes.",
+      "changes": [
+        "⚙️ FIGURE LEVELING & WHEEL EXPANSION",
+        "Development has begun on the backend systems for Figure Leveling and Wheel Expansion.",
+        "Figure leveling will eventually allow players to expand selected wheel segments while reducing others.",
+        "The materials required to level figures are not currently obtainable, so there is currently no way to level figures.",
+        "More details about leveling, materials, and progression will be shared as the system gets closer to release.",
+
+        "🐛 PLAYER-REPORTED FIXES",
+        "Fixed an issue where players could incorrectly receive a Wait Loss while still having a legal action available.",
+        "Available Plates and other possible actions are now properly considered before determining that a player has no actions remaining.",
+        "A Wait Loss should now only occur when the player truly has nothing they can do.",
+        "🎮 AI Improvements",
+        "Smarter AI ?"
+      ]
+    },
+    {
       "version": "0.7.4",
       "title": "Match Replays and player-reported gameplay fixes.",
       "changes": [
