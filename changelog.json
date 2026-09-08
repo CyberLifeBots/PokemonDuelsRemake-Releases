@@ -14,7 +14,7 @@
         "Fixed an issue where players could incorrectly receive a Wait Loss while still having a legal action available.",
         "Available Plates and other possible actions are now properly considered before determining that a player has no actions remaining.",
         "A Wait Loss should now only occur when the player truly has nothing they can do.",
-        "🎮 AI Improvements",
+        "🎮 AI IMPROVEMENTS",
         "Smarter AI ?"
       ]
     },
