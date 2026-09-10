@@ -1,6 +1,79 @@
 {
   "entries": [
     {
+  "version": "0.7.6",
+  "title": "Player profiles, Ranked improvements and additional player-reported fixes.",
+  "changes": [
+    "👤 PLAYER PROFILES",
+    "Added Player Profiles during online duels.",
+    "Hover over a player's name on desktop, or tap it on mobile, to view their profile.",
+    "Player Profiles can display Favorite Figure, Rank, Rating Points, Ranked Wins, Losses and Draws.",
+    "Players can choose to make their account Private.",
+    "Private profiles only display the player's username.",
+    "Improved Player Profile sizing to remove unnecessary empty space.",
+
+    "⚔️ RANKED HEAD-TO-HEAD STATS",
+    "During Ranked matches, opponent profiles now display their Win Rate vs You.",
+    "Head-to-head Win Rate only counts completed Ranked matches played between those two accounts.",
+    "Draws are included in the total number of head-to-head matches.",
+
+    "💤 RANKED AFK DETECTION",
+    "Added inactivity detection to Ranked matches.",
+    "If a player performs no activity for 2 minutes during their turn, an Are You Still Here warning appears.",
+    "The player then has 60 seconds to confirm they are still present.",
+    "Pressing YES completely resets the inactivity timer.",
+    "If the countdown reaches 0, the inactive player receives an AFK Loss and their opponent receives the win.",
+    "Waiting for the opponent does not count as inactivity.",
+    "AFK detection only applies to Ranked matches and does not affect Private Online matches.",
+
+    "🎲 RANDOM TEAM IMPROVEMENTS",
+    "Significantly improved Random Team loading performance.",
+    "Random Team no longer needs to load the player's entire available figure roster before selecting a team.",
+    "This should greatly reduce the long freeze that could occur after pressing Random Team.",
+
+    "📚 MOVE & ABILITY LIBRARY",
+    "Added a new Move & Ability Library to the Database.",
+    "Moves and Abilities can now be browsed separately from the Figure and Plate Libraries.",
+    "Selecting a Move or Ability displays its effect and the figures that have access to it.",
+    "Duplicate Moves and Abilities are combined into a single entry.",
+    "Improved rarity icon spacing and presentation throughout the library.",
+
+    "🔧 FIGURE PROGRESSION",
+    "Continued implementation of Figure Leveling, Wheel Expansion and Chain Levels.",
+    "Figure Levels can eventually reach Level 10 and Chain Levels can eventually reach Chain Level 10.",
+    "Wheel expansion and wheel redistribution systems have been implemented.",
+    "Chain Levels increase eligible Attack damage.",
+    "Improved Figure Manager upgrade controls.",
+    "Rare Metals and Green Cubes can now be used in adjustable quantities instead of one at a time.",
+    "Progression materials are still being introduced gradually and may not yet be obtainable through normal gameplay.",
+
+    "🎥 RANKED REPLAYS",
+    "Improved Ranked replay saving.",
+    "Replays now save correctly whether the player wins or loses.",
+    "Ranked matches ended using Forfeit can now save their replay.",
+    "Improved Match History so newly uploaded replays appear correctly.",
+
+    "🐛 PLAYER-REPORTED FIXES",
+    "Fixed cases where a player could incorrectly receive a Wait Loss despite still having a legal action available.",
+    "Available Plates and other possible actions are now properly considered before determining that a player has no actions remaining.",
+    "Fixed Leaf Blade and similar additional-spin Attacks so their original result is preserved correctly.",
+    "Fixed Leafeon UX - Blade Tail so its effect can activate correctly when losing against eligible White or Gold Attacks.",
+    "Fixed Tapu Fini - Misty Surge movement behavior.",
+    "Fixed Avalugg - Ice Breaker being usable more than intended during the same turn.",
+    "Fixed the AI using Max Revive when both of its Entry Points were already occupied.",
+    "Fixed weather information hover boxes appearing incorrectly stretched the first time they were opened.",
+
+    "🖱️ MENU UI CLEANUP",
+    "Removed unnecessary hover boxes from several obvious menu controls.",
+    "Settings, Discord, library navigation, Filter, Sort and similar self-explanatory controls no longer display redundant hover descriptions.",
+    "Informative tooltips explaining mechanics, restrictions, progression and gameplay rules remain available.",
+
+    "🌐 PRIVATE ONLINE MATCHES",
+    "Fixed a menu routing issue where leaving or forfeiting a Private Online match could return the player to the Offline menu.",
+    "Private Online matches now return to the appropriate Online and Lobby flow."
+  ]
+},
+    {
       "version": "0.7.5",
       "title": "Figure leveling groundwork and additional player-reported fixes.",
       "changes": [
