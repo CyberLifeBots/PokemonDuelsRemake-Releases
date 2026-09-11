@@ -1,5 +1,45 @@
 {
   "entries": [
+     {
+      "version": "0.7.4",
+      "title": "Recent Fixes & Improvements",
+      "changes": [
+        "This update adds new figure filtering options and includes several recent gameplay, leaderboard, and replay fixes.",
+
+        "🔎 FIGURE FILTERING & SORTING",
+        "Added Figure ID filtering to Team Builder, Figure Library, and Figure Collection.",
+        "You can now search directly by Figure ID using values such as 331 or #331.",
+        "Figure ID is handled separately from National Pokédex number.",
+        "Added Figure ID Low → High and Figure ID High → Low sorting options.",
+        "Pokédex number sorting remains available separately.",
+
+        "🏆 LEADERBOARD",
+        "Improved Full Leaderboard loading so all Ranked players can be loaded across multiple pages.",
+        "Fixed older Ranked players potentially being missing because historical Ranked games were not included in their Ranked game count.",
+        "Leaderboard columns now display WIN, LOSS, and DRAW.",
+        "Removed unnecessary decimal values from Rating and match statistics.",
+
+        "⚔️ BATTLE FIXES",
+        "Trickery Shift now occurs after applicable damage buffs and debuffs have been calculated, allowing players to see the correct final attack values before making their decision.",
+        "Force Remove now properly excludes a defeated figure instead of allowing knockout-triggered form changes or similar effects to bypass it.",
+        "Purple vs Purple ties no longer activate battle passives.",
+        "Fixed Mirror Coat and similar effects incorrectly activating after a Purple vs Purple draw.",
+        "Pokémon with effects that activate when knocked out during battle no longer trigger those effects when they are knocked out by unrelated field or secondary effects.",
+        "Fixed exclusion effects such as Fusion Flare and Fusion Bolt not properly excluding a Pokémon when another battle effect such as Destiny Bond was involved.",
+
+        "🌀 MOVE & ABILITY FIXES",
+        "Corrected Warp Hole so the battle opponent can be swapped only with another Pokémon belonging to the opponent from the field, Bench, or P.C.",
+        "Corrected Tractor so Swampert can move to any available adjacent point before the opposing Pokémon moves onto Swampert's previous point.",
+        "Mud Coating no longer stacks between multiple regular Swampert.",
+        "Swampert and Mega Swampert can still have their separate Mud Coating effects combine.",
+        "Dragon Sphere now checks the Pokémon's effective MP after other MP modifiers and only grants +1 MP when the Pokémon is still MP1.",
+        "Fixed Aegislash form changes preventing the player from ending their turn.",
+
+        "🎥 REPLAY FIXES",
+        "Improved replay synchronization when using Previous Turn.",
+        "Rewinding a replay should no longer cause battles to produce different results and desynchronize the rest of the match."
+      ]
+    },
     {
   "version": "0.7.6",
   "title": "Player profiles, Ranked improvements and additional player-reported fixes.",
