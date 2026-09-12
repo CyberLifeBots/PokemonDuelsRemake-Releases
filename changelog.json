@@ -1,6 +1,41 @@
 {
   "entries": [
-     {
+    {
+            "version": "0.7.8",
+            "title": "Match History, Ranked Stability & Battle Fixes",
+            "changes": [
+                "🕘 MATCH HISTORY",
+                "Replaced Recent Matches in the Hub with a new MATCH HISTORY menu.",
+                "Match History now includes My Matches and Global Match History.",
+                "My Matches displays Offline and Online match history in separate sections.",
+                "Global Match History displays recent Ranked matches from all players and supports player search.",
+                "Moved Global Match History out of the Ranked menu.",
+                "When leaving a replay, you can now return to the replay list you came from or return to the main Match History menu.",
+
+                "⚔️ BATTLE FIXES",
+                "Fixed Marshadow's Gloomdweller affecting the wrong figures. Only Ghost-type Pokémon belonging to Marshadow's own team are now considered.",
+                "Fixed knockout-triggered status effects such as Ice Beam and Ice Punch when the user is excluded instead of sent to the P.C. Their status effect can still activate as intended.",
+                "Fixed Rhyperior's Reckless Charge preventing MP reductions from working properly.",
+                "MP-reducing effects can now correctly reduce Rhyperior's normal movement while Reckless Charge remains available as an optional movement ability.",
+                "Fixed Force Remove excluding Pokémon defeated by being surrounded. Surround knockouts now send the Pokémon to the P.C. normally.",
+
+                "🌐 RANKED",
+                "Improved recovery when a Ranked match gets stuck during PLAYER FOUND.",
+                "If the opponent fails to finish connecting, the matchmaking attempt will now cancel instead of leaving the player stuck indefinitely.",
+                "Improved Ranked matchmaking after restarting the game following an interrupted match.",
+                "Reduced cases where players could repeatedly fail to re-enter the Ranked queue after a connection issue.",
+
+                "↩️ MENU NAVIGATION",
+                "Improved Back button navigation throughout the game.",
+                "Back now returns to the previous menu instead of unnecessarily returning directly to the Account Hub.",
+                "Improved navigation between Play, Offline, Online Multiplayer, LAN, and Custom Online matches.",
+
+                "🖥️ WINDOW FIXES",
+                "Fixed an issue where returning through menus could cause the game window to unexpectedly leave its maximized state.",
+                "Maximized windows should now remain maximized while navigating through menus."
+            ]
+        }, 
+    {
       "version": "0.7.7",
       "title": "Recent Fixes & Improvements",
       "changes": [
