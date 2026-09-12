@@ -1,7 +1,7 @@
 {
   "entries": [
     {
-            "version": "0.8.1",
+            "version": "0.8.2",
             "title": "Match History, Ranked Stability & Battle Fixes",
             "changes": [
                 "🕘 MATCH HISTORY",
@@ -18,6 +18,9 @@
                 "Fixed Rhyperior's Reckless Charge preventing MP reductions from working properly.",
                 "MP-reducing effects can now correctly reduce Rhyperior's normal movement while Reckless Charge remains available as an optional movement ability.",
                 "Fixed Force Remove excluding Pokémon defeated by being surrounded. Surround knockouts now send the Pokémon to the P.C. normally.",
+                "Fixed Trickery still allowing the user to shift its segment after Cracked converted it into a Miss.",
+                "Fixed MP markers being calculated before other movement effects. MP marker increases and reductions are now applied last when determining a Pokémon's final MP.",
+                "Fixed cases where Pokémon receiving MP bonuses from Abilities or auras could incorrectly retain movement despite having enough negative MP markers to reduce their final MP to 0."
 
                 "🌐 RANKED",
                 "Improved recovery when a Ranked match gets stuck during PLAYER FOUND.",
