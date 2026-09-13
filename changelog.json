@@ -1,6 +1,48 @@
 {
   "entries": [
     {
+      "version": "0.8.5",
+      "title": "Move, Ability & Mega Evolution Fixes",
+      "changes": [
+        "⚔️ BATTLE FIXES",
+        "Fixed Delphox – Flame Kinesis moving Pokémon 3 steps away from their original position instead of 3 steps away from Delphox.",
+        "Flame Kinesis now considers all valid destinations around Delphox, including positions behind it.",
+        "Fixed Delphox – Magic Trick failing to restore a used Plate when Delphox was excluded after landing Miss.",
+        "Fixed Weak Spot Kick not correctly applying Wait 4 on both wins and losses when the affected Pokémon remains on the field.",
+        "Fixed Monferno – Mid-Air Strike not knocking the battle opponent back 1 step on a draw or loss.",
+        "Mid-Air Strike now allows the player to choose the destination when multiple valid spaces are available.",
+        "Fixed Infernape – Detect failing to grant +1 MP on Infernape's next turn.",
+        "Fixed Entei being unable to move past Burned Pokémon while entering the field from the Bench.",
+        "Fixed Heatran – Magma Slide automatically pushing Pokémon instead of allowing the player to choose from valid destinations.",
+        "Magma Slide can now move Pokémon along valid paths in different directions instead of only along a straight line.",
+        "Fixed Heatran being able to make an additional MP move after using its Bench ability. Heatran must now proceed directly to the battle initiated by the ability.",
+
+        "🔥 TORRACAT & INCINEROAR",
+        "Fixed Torracat – Playful Punch not pushing the battle opponent to the farthest available point in a straight line.",
+        "Playful Punch now activates correctly on a draw or loss.",
+        "Fixed Torracat's Fire Bell ability failing to Burn Grass-type Pokémon within 2 steps when Torracat is knocked out.",
+        "Fixed Incineroar – Suplex only working when a space was available directly behind Incineroar in a straight line.",
+        "Suplex now considers all valid spaces behind Incineroar and allows the player to choose a destination when multiple options are available.",
+
+        "🔥 FLAME GUN",
+        "Updated Flame Gun for Magmortar and Celesteela to: \"The battle opponent and one Pokémon adjacent to it are knocked out.\"",
+        "The Flame Gun user can now choose which Pokémon adjacent to the battle opponent is also knocked out.",
+        "The additional target may be either an opposing Pokémon or one of the user's own Pokémon.",
+        "The Pokémon using Flame Gun cannot select itself as the additional target.",
+
+        "🐉 MEGA EVOLUTION FIXES",
+        "Mega Evolution countdowns now continue decreasing while a Mega-Evolved Pokémon is in Ultra Space.",
+        "Fixed Mega Charizard X – Backdraft so Pokémon it knocks out can correctly be excluded for 7 turns by its ability.",
+        "If Mega Charizard X loses while using Backdraft, the battle opponent is still sent to the P.C. as intended.",
+        "Fixed Mega Charizard Y's ability failing to activate when it participated in a surround without being the Pokémon that completed the surround.",
+        "A Pokémon surrounded with Mega Charizard Y participating is now correctly sent to Mega Charizard Y's P.C.",
+
+        "🖥️ INTERFACE FIXES",
+        "Fixed the Duel Log appearing underneath the Duel Complete menu.",
+        "The Duel Log can now be viewed correctly from the end-of-match screen."
+      ]
+    },
+    {
             "version": "0.8.4",
             "title": "Match History, Ranked Stability & Battle Fixes",
             "changes": [
