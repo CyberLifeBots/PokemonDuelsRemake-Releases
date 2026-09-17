@@ -1,6 +1,91 @@
 {
   "entries": [
     {
+"version": "0.8.8",
+"title": "Z Start of a New Era",
+"changes": [
+"⚡ Z-MOVES",
+"Z-Moves are now available to all players.",
+"Added Z-Move gauges to the redesigned player banners.",
+"Z-Moves are fully supported during online matches.",
+
+    "⚔️ NEW BATTLE SCREEN",
+    "Completely redesigned the Battle Screen with larger Pokémon figures and bigger, easier-to-read wheels.",
+    "Improved Player 1 and Player 2 blue/red visual identities.",
+    "Player names, duel timers, and Z-Move gauges are now displayed together in the top banners.",
+    "Added a centered Weather banner showing the current weather and its description.",
+    "Expanded move panels to display move names, damage or stars, and full effect descriptions.",
+    "Added ACTIVE EFFECTS sections showing statuses, markers, passive Plates, and supported field or trainer effects.",
+    "Added visible names and descriptions for status effects including Asleep, Cracked, Curse, and Photon.",
+    "Enlarged wheel status icons and added new battle visuals for effects such as Burn and Frozen.",
+    "Improved wheel, VS emblem, and battle information positioning.",
+
+    "🎮 BOARD & UI",
+    "Refreshed player banners, timers, buttons, and Z-Move gauges with stronger blue/red visuals.",
+    "Added animated turn indicator arrows.",
+    "End Turn now draws attention when no actions remain or when the player has been inactive for one minute.",
+    "Updated the Plate buttons with the generic Plate logo.",
+    "Redesigned Gym Leader and Elite Four introductions.",
+    "Added a new Champion introduction.",
+    "Restored the previous Player Hub layout while keeping the Poké Ball Match History background.",
+    "Rounded the Player Hub top banner.",
+
+    "👥 TEAM BUILDER",
+    "Significantly improved saved-team loading speed and memory usage.",
+    "Team previews now load more efficiently.",
+    "Improved Team Builder navigation when backing out of menus.",
+    "Ranked team validation continues to check ownership and Mega Evolution restrictions.",
+
+    "⚙️ GAMEPLAY CHANGES",
+    "When no Pokémon can move, a legally usable Plate must now be played before ending the turn.",
+    "Each Pokémon can now have a maximum of one Mega Evolution attached, including Charizard X/Y and Mewtwo X/Y.",
+    "Repeated-hit moves such as Fire Spin now stop after a maximum of 10 actual spins, including the initial spin. Ability bonus hits can still occur in addition to these spins.",
+    "Successful form changes now clear markers and their associated effects while preserving Wait.",
+
+    "🐛 FIGURE & BATTLE FIXES",
+    "Aegislash now correctly returns from Blade Form to Shield Form when leaving the field, including temporary and permanent exclusion.",
+    "Defensive knockout-prevention effects now correctly work when attacked from two spaces away.",
+    "Fixed Larvesta and Fire Scales incorrectly burning protected attackers from two spaces away.",
+    "Eevee can now correctly receive its evolution opportunity when a defeated opponent uses a form change to avoid its normal knockout destination.",
+    "Arceus's entry ability now activates when entering the field through effects such as Pokémon Switch, but not when simply swapping between field spaces.",
+    "Regirock, Regice, and Registeel now affect all opposing Pokémon within two steps, with each affected Pokémon resolving its own spin.",
+    "Surrounded Cracked Pokémon are now permanently excluded instead of being sent to Ultra Space.",
+    "Fixed Kyogre's Tidal Wave when affecting adjacent Pokémon.",
+
+    "🏆 RANKED AI OPPONENTS",
+    "Ranked matchmaking can now provide an AI opponent when an eligible human opponent cannot be found.",
+    "Below 1600 rating, AI opponents can appear after 20 seconds.",
+    "From 1600 to 2500 rating, AI opponents can appear after 5 minutes.",
+    "Above 2500 rating, AI opponents can appear after 10 minutes.",
+    "Eligible human opponents always have priority over AI opponents.",
+    "Ranked AI uses randomized legal EX/UX teams and Ranked-legal Plates.",
+    "AI trainers have generated trainer-style usernames with an AI tag.",
+    "Matches against Ranked AI affect rating, statistics, and Match History just like regular Ranked matches.",
+
+    "🌐 ONLINE MULTIPLAYER",
+    "Improved overall online battle stability.",
+    "Reduced the chance of battle actions being lost during busy moments.",
+    "Improved online performance during large bursts of battle activity, especially on Android.",
+    "Improved match setup, disconnect, cancellation, and result handling.",
+    "Match results can retry uploading after temporary connection problems or restarting the game.",
+    "A new Ranked search cannot begin while the previous Ranked result is still being processed.",
+
+    "🔄 UPDATER",
+    "Improved overall updater reliability.",
+    "Downloads can now resume when supported instead of always restarting from the beginning.",
+    "Added automatic recovery for interrupted or stalled downloads.",
+    "Reduced freezing during large update installations.",
+    "Improved Windows update installation and recovery.",
+    "Improved protection against corrupted update downloads.",
+    "Account data, saved teams, and Match History are preserved during updater recovery.",
+    "Improved progress information while downloading, verifying, and installing updates.",
+
+    "📜 PATCH NOTES",
+    "Players must be on the updated game version to play online together with the new v0.8.8 gameplay rules.",
+    "Welcome to the Z era!"
+  ]
+},
+    {
       "version": "0.8.7",
       "title": "Sandbox Mode, Match History Overhaul & Battle Fixes",
       "changes": [
