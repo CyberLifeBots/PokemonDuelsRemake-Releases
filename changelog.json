@@ -1,6 +1,40 @@
 {
   "entries": [
     {
+      "version": "0.9.0",
+      "title": "Final Stretch",
+      "changes": [
+        "🎨 UI UPDATES",
+        "Updated the Team Builder UI.",
+
+        "⚔️ BATTLE MECHANICS & ABILITIES",
+        "Fixed Arceus incorrectly resisting Kartana's Ultra Space ability while Cracked. Arceus only prevents attack effects that send it to Ultra Space; abilities such as Kartana's can still send it there.",
+        "Fixed the interaction between Palkia UX and Kartana. Palkia UX's ability now takes priority by preventing the knockout and moving Palkia to an Entry Point instead. Palkia is only sent to Ultra Space if both Entry Points are blocked.",
+        "Pokémon with a Pumpkin Marker occupying an Entry Point can now be moved over when deploying a Pokémon from the Bench, regardless of whether the marked Pokémon belongs to you or your opponent.",
+        "Fixed Phantom Arrow so its field-spin effect activates after a Win, Loss, or Draw against White or Gold attacks. The effect now also resolves correctly against movement attacks such as Sunsteel Strike and Judgment.",
+        "Fixed Chesnaught's Spiky Shield automatically selecting where the opponent moves. The player is now given the appropriate movement options.",
+        "Fixed Shiny Glaceon's Tackle not displaying its damage. Tackle now correctly shows 40 damage.",
+        "Fixed Tractor against Pokémon that cannot be moved, such as Toxapex or Snorlax. The opposing Pokémon remains in place, but the Tractor user can still move itself.",
+        "Fixed Earthquake and similar wheel-spin effects incorrectly considering Miss segments created by Burn or Paralysis. These effects now spin the Pokémon's normal wheel without field-applied status modifications unless the move specifically states otherwise, such as Origin Pulse or Precipice Blades.",
+        "Fixed Suicune's Sheer Cold against a Frozen Arceus. Arceus remains protected from exclusion, but Sheer Cold's knockout effect now correctly sends it to the P.C.",
+        "Restored the missing Tapu Fini ability text: \"On your turn, Pokémon within 2 steps of this Pokémon cannot be affected by any special condition.\"",
+        "Fixed Dazzling Gleam's spin effect failing to activate when affected by moves such as Sunsteel Strike, Judgment, and similar movement attacks.",
+        "Fixed Muddy Water incorrectly pushing opposing Pokémon diagonally. Pokémon can now only be pushed in a straight line.",
+        "Fixed Muddy Water failing to apply Wait when the adjacent opposing Pokémon cannot be moved because its path is blocked or it has reached the end of the line.",
+        "Fixed Primarina's ability not allowing Round to count Pokémon with the Sing attack. Round now correctly counts Pokémon with either Round or Sing.",
+        "Fixed Sharpedo EX's Washout automatically selecting where the opponent moves. The player is now given the appropriate movement options.",
+        "Restored Milotic's Blue attack option to Confuse itself, allowing it to properly interact with its ability as in the original game.",
+        "Fixed Magic Coat failing to reflect Special Conditions and Markers. It now properly reflects applicable effects from White attacks and lower-star Purple attacks.",
+        "Fixed Palkia EX being excluded when knocked out while affected by a Curse Marker. Because its ability prevents it from being knocked out, damage-based exclusion effects now fail and Palkia EX moves to the Bench instead.",
+        "Fixed restored evolved Pokémon such as Aurorus, Tyrantrum, and Omastar failing to return to their previous Evolution when excluded.",
+        "Fixed the Energy Ball Marker remaining attached after the affected Pokémon is knocked out or transformed.",
+        "Fixed Flame Sphere allowing Pokémon to move over other Pokémon while deploying from the Bench. Its movement effect now only applies while on the field.",
+
+        "✨ MEGA EVOLUTION",
+        "Fixed Mega Evolution becoming unlimited after a Pokémon returned from Ultra Space."
+      ]
+    }
+    ,{
       "version": "0.8.8",
       "title": "Go on a Quest!",
       "changes": [
