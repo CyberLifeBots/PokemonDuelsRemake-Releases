@@ -1,6 +1,39 @@
 {
   "entries": [
     {
+      "version": "0.9.2",
+      "title": "New Look, New Trainers, New Vibes",
+      "changes": [
+        "✨ NEW FEATURES",
+        "Added custom avatars. Create your own look with trainers, hairstyles, masks, and backgrounds, then move, resize, and rotate assets in the Avatar Editor.",
+        "Non-exclusive masks are now available to all players through the shop and Avatar Editor.",
+        "Added rank-based trainer rewards. New trainer avatars become available for purchase as you reach higher Rank Point requirements.",
+
+        "🎨 UI & QUALITY OF LIFE",
+        "Refreshed the Shop, Inventory, and Team Selection screens with updated layouts and visuals.",
+        "All Team Selection modes now share the same visual design, with controls adapted for each mode.",
+        "Added saved-team search, newest-first ordering, and faster team browsing.",
+        "Random teams now remain hidden behind question marks until the match begins.",
+        "Team Builder searches now include move and Ability descriptions.",
+        "Added additional Team Builder filters for Status Conditions and movement-related effects.",
+        "Added reverse alphabetical sorting to the Shop.",
+        "Shop items now display clearer unlock requirements.",
+        "Trainer names no longer display internal variant numbers.",
+        "Masks now use descriptive names.",
+        "Improved Inventory spacing and reduced item-card sizes for easier browsing.",
+        "Adjusted oversized mask artwork in the Inventory.",
+        "Improved multi-chest opening with clearer quantity controls.",
+
+        "🐛 FIXES",
+        "Fixed the AI sometimes playing for the wrong side after attaching a Symbiont Marker.",
+        "Fixed opponents being able to act while Sand Veil or Sandslash choices were still pending.",
+        "Fixed Balloon Body incorrectly allowing an additional MP move after stopping beside it.",
+        "Fixed Pokémon information scrolling in the mobile Ability Library.",
+        "On mobile, tapping a Pokémon in the Move and Ability Libraries now opens its information card. Tapping outside the card closes it.",
+        "Fixed the Avatar Editor's empty Props message displaying vertically."
+      ]
+    }
+    ,{
       "version": "0.9.1",
       "title": "Final Stretch",
       "changes": [
