@@ -1,5 +1,31 @@
 {
   "entries": [
+     {
+      "version": "0.9.3",
+      "title": "Avatar, Battle & Online Improvements",
+      "changes": [
+        "🎨 AVATAR & PROFILE IMPROVEMENTS",
+        "Added stretching controls for Hair, Masks, and Props. Selected assets now have additional resize handles in the middle of each side for horizontal and vertical stretching.",
+        "Added a Reset button to restore the selected avatar asset to its original size and proportions.",
+        "Improved avatar visibility during online matches. Clicking a player's banner now allows their avatar to be opened in a larger view.",
+        "Players using a custom avatar now have an avatar preview beside their name on the battle map.",
+        "Hovering over a player's avatar preview enlarges it for a clearer view.",
+        "Added five new free avatar faces.",
+        "Fixed the Backgrounds tab in the Avatar Shop incorrectly using the menu-closing sound.",
+
+        "📱 MOBILE IMPROVEMENTS",
+        "Added a View Evolutions button at the bottom of Pokémon cards on mobile.",
+
+        "⚔️ BATTLE FIXES",
+        "Fixed Rough Skin incorrectly applying Cracked Markers while the Pokémon was affected by a Special Condition.",
+        "Fixed Air Balloon so it sets MP to 2 regardless of normal +MP or -MP Markers, while still respecting Ability-based MP overrides.",
+        "Fixed Tangrowth's Entangle wheel-spin animation for Pokémon located two steps away.",
+
+        "🌐 ONLINE & RANKED",
+        "Improved Ranked reconnection handling to reduce network desyncs, skipped synchronized actions, and stuck battle choices after reconnecting.",
+        "Fixed persistent Ability effects sometimes being lost after reconnecting to an online duel."
+      ]
+    },
     {
       "version": "0.9.2",
       "title": "New Look, New Trainers, New Vibes",
