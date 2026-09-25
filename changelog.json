@@ -1,7 +1,7 @@
 {
   "entries": [
      {
-      "version": "0.9.5",
+      "version": "0.9.6",
       "title": "Avatar, Battle & Online Improvements",
       "changes": [
         "🎨 AVATAR & PROFILE IMPROVEMENTS",
@@ -12,6 +12,9 @@
         "Hovering over a player's avatar preview enlarges it for a clearer view.",
         "Added five new free avatar faces.",
         "Fixed the Backgrounds tab in the Avatar Shop incorrectly using the menu-closing sound.",
+        "Manectric can no longer Mega Evolve on the same turn it switches onto the field using its ability",
+        "Regigigas now resists forced movement from Volt Switch, other movement effects, abilities, and plates",
+        "Supersonic Speed now converts Gold Attacks only for Pokémon battling its evolved ability holder",
 
         "📱 MOBILE IMPROVEMENTS",
         "Added a View Evolutions button at the bottom of Pokémon cards on mobile.",
