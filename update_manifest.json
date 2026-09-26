@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "latest_version": "0.9.6",
+  "latest_version": "0.9.7",
   "base_version": "0.1.0",
   "mandatory": false,
   "patch": {
@@ -23,9 +23,9 @@
     "size_bytes": 1877913864
   },
   "current_patch": {
-    "version": "0.9.6",
-    "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.9.6/PokemonDuelsRemake_0.9.6_patch.pck",
-    "sha256": "8c26771dc1b8cfd645462c4b67c5f017c7b664533bf8479416040b8d604c7929",
-    "size_bytes": 595387600
+    "version": "0.9.7",
+    "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v0.9.7/PokemonDuelsRemake_0.9.7_patch.pck",
+    "sha256": "a341e5c27b63c1e8797928d39235771b8491383b958ba3cf05d7baf0c24f0089",
+    "size_bytes": 644314476
   }
 }
