@@ -1,6 +1,57 @@
 {
   "entries": [
     {
+  "version": "0.9.8",
+  "title": "Mayhem Tower Expansion & Battle Fixes",
+  "changes": [
+    "🏰 MAYHEM TOWER REWARDS",
+    "Fixed an issue where Mayhem Tower rewards were not being displayed correctly, including guaranteed reward floors.",
+    "Rewards earned from a floor are now always shown on the reward screen after the duel.",
+    "Increased the standard Pokémon chest drop chance from 5% to 25% per cleared floor.",
+    "Every 5th cleared floor now guarantees 4 random Pokémon chests and 1 Gold Chest.",
+    "Increased Rainbow Chest chance to 5%.",
+    "Increased EX Chest chance to 8%.",
+    "Rebalanced the remaining chest rarity rates accordingly.",
+
+    "🌀 NEW MAYHEM ANOMALIES",
+    "Clumsy Feet Mayhem: Every Pokémon's MP changes randomly between 1, 2, or 3 at the start of each turn.",
+    "Confused Mayhem: All Pokémon are Confused for the entire duel. If a Pokémon loses Confusion, it becomes Confused again before its next battle.",
+    "Musical Chairs Mayhem: Every 3 turns, all Pokémon occupying non-Goal spaces are randomly shuffled between the currently occupied spaces. Pokémon standing on a Goal are not moved.",
+    "Added a shuffle animation for Musical Chairs Mayhem where affected Pokémon rise from the board and land on their new spaces.",
+    "Feeling Sick Mayhem: All Pokémon begin the duel with random status conditions. After every battle, participating Pokémon receive a random status condition: Freeze, Paralysis, Burn, Noxious, or Poison.",
+    "Weak-Link Mayhem: In damage battles, the Pokémon with the lower damage wins instead of the higher damage. Purple, Blue, Miss, and other special battle interactions continue to resolve normally.",
+    "Six of a Kind Mayhem: Each player receives a team containing six copies of the same randomly selected Pokémon. The two players may receive different Pokémon from each other. Every Pokémon is set to 3 MP for the duel.",
+
+    "📝 MAYHEM DESCRIPTION CLEANUP",
+    "Updated Mayhem descriptions so they only explain what players will actually experience during the duel.",
+    "Removed internal details such as hidden team-generation odds, AI behavior notes, and other implementation-specific information.",
+
+    "⚔️ BATTLE MECHANICS & ABILITY FIXES",
+    "Imprison Marker: Fixed Imprison allowing multiple attacks on the same Pokémon to become Miss at the same time.",
+    "A Pokémon can now have only one attack converted to Miss by Imprison.",
+    "If Imprison is applied to another attack, the previous Imprison-converted Miss is restored and the newly selected attack becomes Miss instead.",
+    "Knock Off: Fixed Knock Off failing to end active Energy Plates.",
+    "Mega Banette: Fixed an issue with Mega Banette's self damage boost calculating less damage than intended.",
+    "Mega Banette now correctly receives its base +20 damage plus the same knockout-based damage bonus used by regular EX Banette.",
+    "Banette and Shuppet knockouts are now counted consistently between Banette and Mega Banette.",
+    "Marshadow — Spectral Thief: Fixed Spectral Thief incorrectly using the opponent's final modified damage when calculating its copied damage bonus.",
+    "Spectral Thief now copies only the damage increase granted by the current battle opponent's own damage-boosting Ability.",
+    "Damage reductions and bonuses coming from other Pokémon on the field are no longer included in Spectral Thief's copied bonus.",
+    "Example: if Banette's own Ability grants it +40 damage, Spectral Thief receives +40 damage.",
+    "Giratina — Distort: Fixed movement after activating Distort.",
+    "After selecting an adjacent Pokémon, Giratina may only move to an available space behind that selected Pokémon.",
+    "The selected adjacent Pokémon may belong to either player.",
+    "If multiple valid spaces are available behind the selected Pokémon, the player may choose between them.",
+    "Mega Sableye — Plate Gnawing: Fixed Plate Gnawing failing to end an opponent's active Mega Evolution.",
+    "Mega Evolution turns now end correctly when affected by Plate Gnawing.",
+    "Triggered Ability Target Highlighting: Added a visual indicator when an opponent triggers an Ability that requires the defending player to make a choice.",
+    "The affected Pokémon is now clearly highlighted before the selection prompt appears.",
+    "This makes it easier to identify which Pokémon triggered the Ability when multiple copies are on the field.",
+    "Mawile vs. Garchomp: Fixed Garchomp being able to avoid battle through its Ability when affected by Mawile.",
+    "Mawile now correctly prevents Garchomp from avoiding the battle and moving away instead."
+  ]
+}
+    ,{
       "version": "0.9.7",
       "title": "New Single Player Mode: Mayhem Tower",
       "changes": [
