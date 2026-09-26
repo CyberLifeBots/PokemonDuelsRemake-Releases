@@ -1,6 +1,57 @@
 {
   "entries": [
-     {
+    {
+      "version": "0.9.7",
+      "title": "New Single Player Mode: Mayhem Tower",
+      "changes": [
+        "🏰 MAYHEM TOWER",
+        "Added Mayhem Tower, a new endless single-player mode where every floor introduces a random anomaly revealed when the duel begins.",
+        "Start at Level 1 and climb as high as you can.",
+        "Take breaks between levels and continue your run where you left off.",
+        "Losing or leaving an active duel resets the current run.",
+        "Your best Mayhem Tower level is permanently saved.",
+        "The Tower viewer displays the five previous floors and five upcoming floors around your current position.",
+
+        "🌀 ANOMALIES",
+        "Mega Mayhem: All Pokémon remain Mega Evolved throughout the duel. Both teams are generated using Mega Pokémon.",
+        "Ultra Rapid Mayhem: All Pokémon have 4 MP and Z-Move gauge gains increase to 20% per action. Teams are generated using EX and UX Pokémon.",
+        "Z Incredible Mayhem: Z-Move gauges remain at 100%, Z-Move Plates refresh on their owner's next turn, and the AI always uses a Z-Move when eligible. A 50/50 roll selects either C/UC/R or EX/UX for both teams.",
+        "Tiny Titans Mayhem: All Pokémon deal an additional 100 damage. Teams are generated using C, UC and R Pokémon.",
+        "Mental Mayhem: Purple moves randomly receive 1–5 stars. Teams are generated using Pokémon with Purple moves.",
+        "Excluded Mayhem: Knocked-out Pokémon are permanently excluded from the duel. Teams are generated using EX and UX Pokémon.",
+        "Metronome Mayhem: Pokémon receive random wheels borrowed from EX and UX Pokémon. Teams can use all rarities.",
+        "Rainbow Mayhem: Each battle swaps White ↔ Gold and Purple ↔ Blue. Teams can use all rarities.",
+        "Failed Experiment Mayhem: Take on a random EX/UX team using six Ditto. Opponents can Mega Evolve.",
+        "Eligible EX and UX Pokémon generated in Mayhem Tower automatically receive their matching Mega Evolution and Mega Plate when available.",
+
+        "🎁 TOWER REWARDS",
+        "Every 5 levels cleared guarantees 2 random Pokémon chests and 1 Gold Chest.",
+        "Other cleared levels have a 5% chance to reward a random Pokémon chest.",
+        "A reward screen appears after every duel, including when no reward drops.",
+        "Mayhem Tower rewards use the same reward presentation as Daily Quests.",
+        "Random Pokémon Chest rarity odds: C 45%, UC 35%, R 15%, EX 3%, UX 2%.",
+
+        "👤 TOWER TRAINER AVATARS",
+        "Added 12 Mayhem trainer avatars to the Avatar Shop.",
+        "Avatar purchase eligibility is based on your saved best Mayhem Tower level.",
+        "Once unlocked, avatar eligibility remains available even after your current run resets.",
+        "Added a new Mayhem trainer filter to the Avatar Shop.",
+
+        "🎨 PRESENTATION",
+        "Added dedicated Mayhem Tower artwork.",
+        "Added animated anomaly introductions with dedicated sound effects.",
+        "Added compact anomaly icons with hover descriptions on the board and during battles.",
+        "Added anomaly reference and chest drop-rate tables.",
+        "Each Mayhem Tower duel selects random Mayhem music.",
+        "Added a Mayhem-only music selector in Settings.",
+        "Newly added tracks placed in the Mayhem music folder are detected automatically.",
+        "Mayhem Tower duels are always weatherless.",
+
+        "📜 MAYHEM RULES",
+        "Mayhem rules apply exclusively to Mayhem Tower."
+      ]
+    }, 
+    {
       "version": "0.9.6",
       "title": "Avatar, Battle & Online Improvements",
       "changes": [
