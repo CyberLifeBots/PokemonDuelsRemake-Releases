@@ -3,237 +3,96 @@ name: Update Patch Manifest
 on:
   release:
     types: [published]
-
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag to rebuild the manifest from (example: v0.5.0)"
+        description: "Published release tag (v1.0.4 compatibility, then v1.0.5, v1.0.6...)"
         required: true
         type: string
+      dry_run:
+        description: "Verify and preview without committing the public manifest"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-patch-manifest
+  cancel-in-progress: false
+
 jobs:
   update-manifest:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 30
     steps:
-      # ---------------------------------------------------------
-      # CHECKOUT
-      # ---------------------------------------------------------
-      - name: Checkout repository
+      - name: Checkout current publisher
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
 
-      # ---------------------------------------------------------
-      # GENERATE MANIFEST
-      # ---------------------------------------------------------
-      - name: Generate update manifest
+      - name: Test manifest rules
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Download published patch
+        id: download
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
         run: |
           set -euo pipefail
-
-          # -----------------------------------------------------
-          # GET RELEASE
-          # -----------------------------------------------------
-          if [[ "${{ github.event_name }}" == "release" ]]; then
-            TAG="$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")"
-            RELEASE="$(jq -c '.release' "$GITHUB_EVENT_PATH")"
-          else
-            TAG="${{ inputs.tag }}"
-            RELEASE="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}")"
-          fi
-
-          VERSION="${TAG#v}"
-
-          echo "Release tag: $TAG"
-          echo "Detected version: $VERSION"
-
-          # -----------------------------------------------------
-          # FIND PATCH
-          # -----------------------------------------------------
-          ASSET="$(
-            jq -c \
-              '[.assets[] | select(.name | endswith("_patch.pck"))][0]' \
-              <<< "$RELEASE"
-          )"
-
-          if [[ "$ASSET" == "null" ]]; then
-            echo "::error::No *_patch.pck file was found in release $TAG."
+          if [[ ! "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::Use a published numeric release tag, for example v1.0.4."
             exit 1
           fi
+          RELEASE_DIR="$(mktemp -d "$RUNNER_TEMP/patch-manifest.XXXXXX")"
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" > "$RELEASE_DIR/release.json"
+          NAME="$(python3 tools/update_release_manifest.py select \
+            --repository "$GITHUB_REPOSITORY" --release "$RELEASE_DIR/release.json")"
+          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" \
+            --pattern "$NAME" --dir "$RELEASE_DIR"
+          printf 'release_dir=%s\npatch_name=%s\n' "$RELEASE_DIR" "$NAME" >> "$GITHUB_OUTPUT"
 
-          NAME="$(jq -r '.name' <<< "$ASSET")"
-          URL="$(jq -r '.browser_download_url' <<< "$ASSET")"
-          SIZE="$(jq -r '.size' <<< "$ASSET")"
-
-          echo "Patch file: $NAME"
-          echo "Patch size: $SIZE bytes"
-
-          # -----------------------------------------------------
-          # DOWNLOAD PATCH
-          # -----------------------------------------------------
-          curl \
-            -L \
-            --fail \
-            --retry 3 \
-            "$URL" \
-            -o "/tmp/$NAME"
-
-          # -----------------------------------------------------
-          # CALCULATE SHA256
-          # -----------------------------------------------------
-          SHA="$(sha256sum "/tmp/$NAME" | awk '{print $1}')"
-
-          echo "SHA256: $SHA"
-
-          # -----------------------------------------------------
-          # BUILD PACKAGE JSON
-          # -----------------------------------------------------
-          PACKAGE_JSON="$(
-            jq -n \
-              --arg version "$VERSION" \
-              --arg url "$URL" \
-              --arg sha "$SHA" \
-              --argjson size "$SIZE" \
-              '{
-                version: $version,
-                url: $url,
-                sha256: $sha,
-                size_bytes: $size
-              }'
-          )"
-
-          # -----------------------------------------------------
-          # VERSION COMPARISON
-          # -----------------------------------------------------
-          version_ge() {
-            [[ "$(
-              printf '%s\n%s\n' "$1" "$2" |
-              sort -V |
-              head -n1
-            )" == "$2" ]]
-          }
-
-          # -----------------------------------------------------
-          # v0.4.0
-          #
-          # Permanent legacy bridge + clean base.
-          # -----------------------------------------------------
-          if [[ "$VERSION" == "0.4.0" ]]; then
-
-            echo "Publishing v0.4.0 as the permanent legacy bridge and new clean base."
-
-            jq \
-              --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
-              '
-              .latest_version = $version
-              | .base_version = "0.1.0"
-              | .current_base_version = "0.4.0"
-              | .patch = $package
-              | .legacy_bridge = $package
-              | .current_patch = {
-                  version: "0.4.0",
-                  url: "",
-                  sha256: "",
-                  size_bytes: 0
-                }
-              ' \
-              update_manifest.json \
-              > update_manifest.tmp
-
-          # -----------------------------------------------------
-          # v0.4.0+
-          #
-          # Normal cumulative overlay for the new base.
-          # Keeps the v0.4.0 bridge permanently pinned.
-          # -----------------------------------------------------
-          elif version_ge "$VERSION" "0.4.0"; then
-
-            echo "Publishing a v0.4.0+ overlay while keeping the v0.4.0 bridge pinned."
-
-            jq \
-              --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
-              '
-              .latest_version = $version
-              | .current_base_version = (
-                  .current_base_version // "0.4.0"
-                )
-              | .current_patch = $package
-              ' \
-              update_manifest.json \
-              > update_manifest.tmp
-
-          # -----------------------------------------------------
-          # PRE-v0.4.0
-          #
-          # Legacy cumulative update system.
-          # -----------------------------------------------------
-          else
-
-            echo "Publishing a pre-v0.4.0 legacy cumulative patch."
-
-            jq \
-              --arg version "$VERSION" \
-              --argjson package "$PACKAGE_JSON" \
-              '
-              .latest_version = $version
-              | .patch = $package
-              ' \
-              update_manifest.json \
-              > update_manifest.tmp
-
-          fi
-
-          mv update_manifest.tmp update_manifest.json
-
-          echo ""
-          echo "Generated update_manifest.json:"
-          cat update_manifest.json
-
-      # ---------------------------------------------------------
-      # COMMIT + SAFELY PUSH
-      # ---------------------------------------------------------
-      - name: Commit updated manifest
+      - name: Verify, generate and safely publish manifest
         shell: bash
+        env:
+          RELEASE_DIR: ${{ steps.download.outputs.release_dir }}
+          PATCH_NAME: ${{ steps.download.outputs.patch_name }}
+          DRY_RUN: ${{ inputs.dry_run || false }}
         run: |
           set -euo pipefail
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add update_manifest.json
-
-          # Nothing changed, so there is nothing to commit.
-          if git diff --cached --quiet; then
-            echo "Manifest is already up to date."
-            exit 0
-          fi
-
-          VERSION="$(jq -r '.latest_version' update_manifest.json)"
-
-          git commit -m "Update manifest for v$VERSION"
-
-          # -----------------------------------------------------
-          # IMPORTANT:
-          # main may have changed while this workflow was running.
-          #
-          # Fetch the newest main branch and place our manifest
-          # commit on top of it instead of force-pushing.
-          # -----------------------------------------------------
-          git fetch origin main
-          git rebase origin/main
-
-          # -----------------------------------------------------
-          # PUSH
-          # -----------------------------------------------------
-          git push origin HEAD:main
-
-          echo "Manifest successfully updated for v$VERSION."
+          # Regenerate from current main on a push conflict; never rebase a stale manifest.
+          for ATTEMPT in 1 2 3; do
+            git fetch origin main
+            git checkout -B manifest-publish FETCH_HEAD
+            python3 -m unittest discover -s tests -v
+            python3 tools/update_release_manifest.py generate \
+              --repository "$GITHUB_REPOSITORY" \
+              --release "$RELEASE_DIR/release.json" --pck "$RELEASE_DIR/$PATCH_NAME" \
+              --manifest update_manifest.json --output update_manifest.next.json
+            mv update_manifest.next.json update_manifest.json
+            if git diff --quiet -- update_manifest.json; then
+              echo "Manifest already contains this exact patch; nothing to publish."
+              exit 0
+            fi
+            if [[ "$DRY_RUN" == "true" ]]; then
+              git diff -- update_manifest.json
+              echo "Dry run passed. Public manifest was not changed."
+              exit 0
+            fi
+            git add update_manifest.json
+            VERSION="$(python3 -c 'import json; print(json.load(open("update_manifest.json"))["latest_version"])')"
+            git commit -m "Update manifest for v$VERSION"
+            if git push origin HEAD:main; then
+              echo "Published v$VERSION; the 1.0.4 compatibility bridge remains pinned."
+              exit 0
+            fi
+            echo "main changed during publishing; regenerating from its latest state ($ATTEMPT/3)."
+          done
+          echo "::error::Could not publish after three attempts. No force push was used."
+          exit 1
