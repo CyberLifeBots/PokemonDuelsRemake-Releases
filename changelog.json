@@ -1,129 +1,115 @@
 {
-  "entries": [
-    {
-    version: "1.1.0",
-    title: "Customize your builds & chat with others - v1.1.0",
-    sections: [
-      {
-        title: "Chat and Community",
-        changes: [
-          "Added in-game chat throughout the hub, menus and online matches, plus lobby chat during single-player duels, Challenge Mode, Mayhem Tower and AI battles.",
-          "Chat windows can be moved by dragging their title and resized with a mouse or finger.",
-          "Click a username to open the player's profile, mute them or report them.",
-          "Chat usernames retain a consistent colour throughout the session.",
-          "Added red notification badges for mentions and highlighted messages that ping you.",
-          "Press Enter to complete the first suggested @mention, then Enter again to send.",
-          "Opening chat displays the latest messages.",
-          "Chat automatically follows new messages while you are at the bottom. Scrolling up pauses this until you return.",
-          "Added typing indicators, including your own typing.",
-          "Removed the Resize label while keeping resizing available.",
-          "Added chat-ban support.",
-          "Added counters showing players online and players searching Ranked on the hub, online menu and Ranked search screens."
-        ]
-      },
-      {
-        title: "Player Reporting",
-        changes: [
-          "Added reports for offensive chat, cheating, bad behaviour, glitch abuse and other issues.",
-          "Reports require a written explanation.",
-          "Match reports include the Match ID and available chat history with usernames.",
-          "Reports submitted during a duel are delivered after the match ends to include the full conversation.",
-          "Reports from menu chat include the latest 100 messages."
-        ]
-      },
-      {
-        title: "Wheel Builds, Upgrades and Teams",
-        changes: [
-          "Added Wheel Builds for level 10 figures.",
-          "Save up to five builds, including Default, using earned upgrade points for free.",
-          "Select builds separately for each team slot and form through a searchable, scrollable list.",
-          "Added a dedicated WHEEL BUILDS button at the bottom of Wheel Modification.",
-          "Wheel edits update previews immediately and are applied together through Save Changes.",
-          "Reset Wheel returns allocated points while preserving figure levels and XP.",
-          "Saved wheel changes now appear immediately in teams and new matches.",
-          "Fixed upgrades reducing multiple equally sized Miss segments.",
-          "Redistribution now requires the initial expansion upgrades first.",
-          "Invalid reductions return their redistribution points while preserving levels and valid upgrades.",
-          "Fixed Shiny Ditto and Challenge reward figures displaying inconsistent levels, incorrectly refusing upgrades or showing incorrect wheel modifications.",
-          "Added sorting by figure level in Team Builder and Collection.",
-          "Added reordering of Pokémon and plates within teams."
-        ]
-      },
-      {
-        title: "Battle Rules, Abilities and Move Effects",
-        changes: [
-          "Multiplication and division now resolve before damage buffs and debuffs. Chain Level damage remains part of base damage.",
-          "Swift Swim grants +1 MP beside a Water-type Pokémon and +1 MP during rain. These bonuses stack to +2 MP.",
-          "Attacks from range 2 or 3 protect the attacker from the defending move's effects while preserving the defender's own protection effects.",
-          "Confusion applies only to the initial spin of a spin-again attack, including when confusion shifts a Blue result onto that attack.",
-          "Confusion always shifts at least one segment, and its animation appears even when the shift wraps back to the original move.",
-          "X-Speed converts every White segment sharing the selected attack's name to Gold for that turn.",
-          "Porygon's Trace cannot target Mega Pokémon. Copied abilities retain their other effects, but their form-changing effects are ignored.",
-          "Starmie's Analytic now accounts for star bonuses already active from plates and passives.",
-          "Fiery Breath spins only the selected eligible Pokémon.",
-          "Ponyta, Rapidash and Rhyperior can use a plate before activating their abilities.",
-          "Kyogre, Groudon and their Primal forms no longer provide passive buffs while excluded or in Ultra Space.",
-          "Red Orb and Blue Orb buffs apply only while the corresponding Primal figure is on the field.",
-          "Fixed Backtrack resetting evolutions, Mega Evolutions, forms and plate effects.",
-          "Reflect Move allows players to choose eligible jump destinations.",
-          "Fixed conflicting knockout effects leaving figures stuck. Exclusion takes priority.",
-          "Fixed AI Aura Sphere and other chosen knockout effects sacrificing teammates when an eligible opponent is available, including the AI's goalie.",
-          "Duel logs now name the new type when Arceus, Silvally or Type: Null changes type.",
-          "Corrected the Konck typo in Swampert's Z-Move description."
-        ]
-      },
-      {
-        title: "Challenge Mode, Tower and Rewards",
-        changes: [
-          "Fixed some Challenge Mode AI teams failing to load.",
-          "Repeat Challenge reward bundles now have a 5% drop chance across every difficulty, including Gym Leaders, Elite Four members and Champions.",
-          "Abandoning an Elite Four run no longer restores first-clear rewards for members already defeated.",
-          "New Hard Elite Four runs prohibit Ultra Beasts alongside the existing Mega Evolution restriction. Existing runs retain their previous eligibility.",
-          "Limited Celebi to one per team. Existing Elite Four runs can finish with their saved teams.",
-          "Added two lives to Tower runs, including existing runs.",
-          "Losing or leaving a Tower battle costs one life. Losing both ends the run.",
-          "Clearing every twentieth floor restores lives to two.",
-          "Fixed overflowing reward displays and scrolling with mouse or touch, including during paused battles.",
-          "Every completed Ranked match awards a material chest. Wins and draws use full rarity odds; losses halve higher-rarity odds, with the remaining chance going to Common."
-        ]
-      },
-      {
-        title: "Interface and Loading",
-        changes: [
-          "Collection now caches figure cards for faster return visits.",
-          "Added a Collection loading progress bar.",
-          "Account entry waits for figures and inventory to finish loading, preventing temporary level 1 figures or empty inventories.",
-          "Fixed mobile figure-viewer dragging rotating incorrectly or zooming instead.",
-          "Added separate duel dark mode to dim the board floor independently of menu dark mode. It remains off by default.",
-          "Balance updates support figure-card previews: hover on desktop, or tap on mobile to open a scrollable card and tap outside to close.",
-          "Removed bracket markers from balance notes.",
-          "Fixed the hub update banner cropping its artwork, title and slogan.",
-          "Reduced banner navigation dots and their background to 35% opacity.",
-          "Fixed custom-lobby header text overlapping team controls.",
-          "Fixed duplicate settings buttons on Wheel Modification.",
-          "Moved Veen's credit into Art Design Replacements."
-        ]
-      },
-      {
-        title: "Music",
-        changes: [
-          "Added Original Duel 4 and 5, each with its corresponding danger theme.",
-          "Random Original Duel music now includes all five tracks.",
-          "Added Original Menu 2 and the Original Quest Theme to menu music options."
-        ]
-      },
-      {
-        title: "Online Stability and Updater",
-        changes: [
-          "Added hotfix attempts addressing mobile UI and online availability.",
-          "Reduced database load and improved error handling to address account and Ranked timeouts.",
-          "Improved online-room reconnection and player-slot recovery.",
-          "Fixed attack-effect texture-processing errors associated with battle freezes.",
-          "Added support for smaller updates and downloading missing patches in version order.",
-          "Improved update validation and recovery, including a Repair Update option in Settings."
-        ]
-      }
-    ]
+  "entries": [  
+  {
+  "version": "1.1.0",
+  "title": "New Features, Improvements & Fixes — v1.0.1 to v1.1.0",
+  "changes": [
+    "✨ POKÉMON DUEL REMAKE — UPDATES v1.0.1 TO v1.1.0",
+    "Combined updates introducing in-game chat, player reporting, Wheel Builds, Tower lives, improved rewards, and numerous gameplay and interface fixes.",
+
+    "💬 IN-GAME CHAT & COMMUNITY",
+    "Added chat throughout the hub, menus and online matches.",
+    "Lobby chat is also available during single-player duels, including Challenge Mode, Mayhem Tower and AI battles.",
+    "Move the chat window by dragging its title and resize it using a mouse or finger.",
+    "Click a username to open the player's profile, mute them or report them.",
+    "Chat usernames retain a consistent colour throughout the session.",
+    "Mentions display a red notification badge, and messages that ping you are highlighted.",
+    "Press Enter to complete the first suggested @mention, then Enter again to send.",
+    "Opening chat automatically displays the latest messages.",
+    "Chat follows new messages while you are at the bottom. Scrolling up pauses this until you return.",
+    "Added typing indicators, including your own typing.",
+    "Removed the Resize label while keeping resizing available.",
+    "Added chat-ban support.",
+    "Added counters showing players online and players searching Ranked on the hub, online menu and Ranked search screens.",
+
+    "🚩 PLAYER REPORTING",
+    "Report offensive chat, cheating, bad behaviour, glitch abuse and other issues.",
+    "Reports require a written explanation.",
+    "Match reports include the Match ID and available chat history with usernames.",
+    "Reports submitted during a duel are delivered after the match ends to include the full conversation.",
+    "Reports from menu chat include the latest 100 messages.",
+
+    "🛠️ WHEEL BUILDS, UPGRADES & TEAMS",
+    "Added Wheel Builds for level 10 figures!",
+    "Save up to five builds, including Default, using your earned upgrade points for free.",
+    "Select builds separately for each team slot and form through a searchable, scrollable list.",
+    "Added a dedicated WHEEL BUILDS button at the bottom of Wheel Modification.",
+    "Wheel edits update previews immediately and are applied together through Save Changes.",
+    "Reset Wheel returns allocated points while preserving figure levels and XP.",
+    "Saved wheel changes now appear immediately in teams and new matches.",
+    "Fixed upgrades reducing multiple equally sized Miss segments.",
+    "Redistribution now requires the initial expansion upgrades first.",
+    "Invalid reductions return their redistribution points while preserving levels and valid upgrades.",
+    "Fixed Shiny Ditto and Challenge reward figures displaying inconsistent levels, incorrectly refusing upgrades or showing incorrect wheel modifications.",
+    "Added sorting by figure level in Team Builder and Collection.",
+    "Added reordering of Pokémon and plates within teams.",
+
+    "⚔️ BATTLE RULES, ABILITIES & MOVE EFFECTS",
+    "Multiplication and division now resolve before damage buffs and debuffs. Chain Level damage remains part of base damage.",
+    "Swift Swim grants +1 MP beside a Water-type Pokémon and +1 MP during rain. These bonuses stack to +2 MP.",
+    "Attacks from range 2 or 3 protect the attacker from the defending move's effects while preserving the defender's own protection effects.",
+    "Confusion applies only to the initial spin of a spin-again attack, including when confusion shifts a Blue result onto that attack.",
+    "Confusion always shifts at least one segment. Its animation also appears when the shift wraps back to the original move.",
+    "X-Speed converts every White segment sharing the selected attack's name to Gold for that turn.",
+    "Porygon's Trace cannot target Mega Pokémon. Copied abilities retain their other effects, but their form-changing effects are ignored.",
+    "Starmie's Analytic now accounts for star bonuses already active from plates and passives.",
+    "Fiery Breath spins only the selected eligible Pokémon.",
+    "Ponyta, Rapidash and Rhyperior can use a plate before activating their abilities.",
+    "Kyogre, Groudon and their Primal forms no longer provide passive buffs while excluded or in Ultra Space.",
+    "Red Orb and Blue Orb buffs apply only while the corresponding Primal figure is on the field.",
+    "Fixed Backtrack resetting evolutions, Mega Evolutions, forms and plate effects.",
+    "Reflect Move allows players to choose eligible jump destinations.",
+    "Fixed conflicting knockout effects leaving figures stuck. Exclusion takes priority.",
+    "Fixed AI Aura Sphere and other chosen knockout effects sacrificing teammates when an eligible opponent is available, including the AI's goalie.",
+    "Duel logs now name the new type when Arceus, Silvally or Type: Null changes type.",
+    "Corrected the Konck typo in Swampert's Z-Move description.",
+
+    "🏆 CHALLENGE MODE & REWARDS",
+    "Fixed some Challenge Mode AI teams failing to load.",
+    "Repeat Challenge reward bundles now have a 5% drop chance across every difficulty, including Gym Leaders, Elite Four members and Champions.",
+    "Abandoning an Elite Four run no longer restores first-clear rewards for members already defeated.",
+    "New Hard Elite Four runs prohibit Ultra Beasts alongside the existing Mega Evolution restriction. Existing runs retain their previous eligibility.",
+    "Limited Celebi to one per team. Existing Elite Four runs can finish with their saved teams.",
+    "Fixed overflowing reward displays and scrolling with mouse or touch, including during paused battles.",
+
+    "❤️ MAYHEM TOWER LIVES",
+    "Added two lives to Tower runs!",
+    "Existing runs also receive two lives.",
+    "Losing or leaving a Tower battle costs one life. Losing both ends the run.",
+    "Clearing every twentieth floor restores lives to two.",
+
+    "🎁 GUARANTEED RANKED CHESTS",
+    "Every completed Ranked match now awards a material chest.",
+    "Wins and draws use the full rarity odds.",
+    "Losses halve higher-rarity odds, with the remaining chance going to Common.",
+
+    "🎨 INTERFACE & LOADING",
+    "Collection now caches figure cards for faster return visits.",
+    "Added a Collection loading progress bar.",
+    "Account entry waits for figures and inventory to finish loading, preventing temporary level 1 figures or empty inventories.",
+    "Fixed mobile figure-viewer dragging rotating incorrectly or zooming instead.",
+    "Added separate duel dark mode to dim the board floor independently of menu dark mode. It remains off by default.",
+    "Hover over figures in balance updates to preview their cards. On mobile, tap to open a scrollable card and tap outside to close.",
+    "Removed bracket markers from balance notes.",
+    "Fixed the hub update banner cropping its artwork, title and slogan.",
+    "Reduced banner navigation dots and their background to 35% opacity.",
+    "Fixed custom-lobby header text overlapping team controls.",
+    "Fixed duplicate settings buttons on Wheel Modification.",
+    "Moved Veen's credit into Art Design Replacements.",
+
+    "🎵 NEW MUSIC OPTIONS",
+    "Added Original Duel 4 and 5, each with its corresponding danger theme.",
+    "Random Original Duel music now includes all five tracks.",
+    "Added Original Menu 2 and the Original Quest Theme to menu music options.",
+
+    "🌐 ONLINE STABILITY & UPDATER",
+    "Continued work on mobile interface and online availability issues.",
+    "Reduced database load and improved error handling to address account and Ranked timeouts.",
+    "Improved online-room reconnection and player-slot recovery.",
+    "Fixed attack-effect texture-processing errors associated with battle freezes.",
+    "Added support for smaller updates and downloading missing patches in version order.",
+    "Improved update validation and recovery, including a Repair Update option in Settings."
+  ]
   },
   {
       "version": "1.0.0",
