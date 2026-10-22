@@ -1,6 +1,32 @@
 {
   "entries": [
     {
+      "version": "1.1.4",
+      "title": "Mayhem, Replays, Zones & Chat Improvements",
+      "changes": [
+        "POKÉMON DUEL REMAKE — v1.1.4",
+        "MAYHEM",
+        "Six of a Kind now gives both teams the same rarity, while each team still has six copies of its selected Pokémon.",
+        "Clarified Unstable Evolution: C, UC and R Pokémon can evolve into eligible EX Pokémon from another evolution line.",
+        "REPLAYS AND ZONES",
+        "Added WATCH REPLAY to the end-of-match menu so you can rewatch the match directly after its result is saved.",
+        "Renamed ULTRA SPACE to ZONES. Ultra Space and excluded Pokémon now appear in separate visual sections for each player.",
+        "Return choices for Ultra Space and excluded Pokémon now show figure images, team slots and their last board positions, making identical figures easier to distinguish.",
+        "Zone lists and return choices support scrolling and figure-card previews on mobile.",
+        "FIGURES AND CHAT",
+        "Added a NEW FIGURES tab to Balance Changes, showing all 12 Challenge Mode reward figures with hover or tap previews.",
+        "Moved new reward figures out of the Changes tab into New Figures.",
+        "Added separate DUEL and GENERAL chat tabs during online matches, so you can follow the community chat without leaving your duel conversation.",
+        "Chat drafts, typing and notifications stay separate between the two tabs. Player mutes and reports remain available.",
+        "BROWSER",
+        "Balance Changes now loads both tabs' figure cards and images together when opened, instead of loading full figures on each hover.",
+        "Lightweight previews are reused while the panel is open and released when it closes.",
+        "MUSIC",
+        "Renamed Original Duel 4 to Practice Duel Theme.",
+        "Renamed Original Duel 5 to Don Roger Theme."
+      ]
+    },
+    {
       "version": "1.1.3",
       "title": "Elite Four Sync, Battle Fixes & DuelDB Overlay Support",
       "changes": [
