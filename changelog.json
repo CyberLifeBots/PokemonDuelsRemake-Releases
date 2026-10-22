@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "1.1.5",
+      "title": "Emergency Zones Fix",
+      "changes": [
+        "Fixed no scrollbar or exit button on zones."
+      ]
+    },
+    {
       "version": "1.1.4",
       "title": "Mayhem, Replays, Zones & Chat Improvements",
       "changes": [
