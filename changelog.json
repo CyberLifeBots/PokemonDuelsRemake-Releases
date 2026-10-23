@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "1.1.6",
+      "title": "Battle and Campaign Fixes",
+      "changes": [
+        "POKÉMON DUEL REMAKE v1.1.6",
+        "BATTLE FIXES",
+        "Frozen Pokémon now keep an all-Miss wheel when effects such as Guardian Sphere or Mega Beedrill would otherwise change their Miss segments.",
+        "Ultra Necrozma’s Neuroforce now reverses damage boosts from its battle opponent’s own Ability, while leaving buffs from allied Pokémon intact.",
+        "Blue Flare and Bolt Strike respect the battle color rules and do not inflict Burn or Paralysis when defeated by Purple or Blue moves.",
+        "Switching between Mega Mewtwo X and Y now uses each form’s saved upgraded wheel, including the shiny forms.",
+        "CONTROLS",
+        "On the installed desktop game, hold Shift while clicking End Turn to skip the optional remaining-actions confirmation. Required actions and other turn restrictions still apply.",
+        "CAMPAIGN AND COMMUNITY",
+        "Fixed a server error when saving Elite Four and Champion results that could prevent affected runs from continuing. Existing progress and rewards are preserved.",
+        "Added support for Discord channel counters showing online players and players searching for or playing ranked matches."
+      ]
+    },
+    {
       "version": "1.1.5",
       "title": "Emergency Zones Fix",
       "changes": [
