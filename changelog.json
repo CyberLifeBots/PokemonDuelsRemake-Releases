@@ -1,6 +1,31 @@
 {
   "entries": [
     {
+      "version": "1.1.7",
+      "title": "Clocks, Replays and Battle Fixes",
+      "changes": [
+        "POKÉMON DUEL REMAKE v1.1.7",
+        "ONLINE CLOCKS",
+        "Match clocks now synchronize regularly with the host so both players see the same time reference.",
+        "A client-side clock reaching zero no longer decides a loss by itself. The host validates timer expiry before ending the duel.",
+        "Both clocks remain paused during connection recovery and automatic battle presentation; interactive choices still use the chooser's time.",
+        "BATTLE FIXES AND PRESENTATION",
+        "Fixed Shed Skin not offering its special-condition recovery at the start of your turn. Accepting it removes the condition, offers evolution when eligible, and ends the turn once; declining keeps your turn.",
+        "Fixed Mega Gardevoir retaining attack targets beside its old position after using Cerebral Embrace. Attacks are checked from its current position.",
+        "Added a short camera zoom and goal-burst effect when a figure scores. This follows your battle animation setting.",
+        "REPLAYS",
+        "Added a viewing-side button to switch between Player 1 and Player 2 while paused between actions.",
+        "Fixed rapid Previous Turn, Next Turn and Restart clicks causing repeated scene reloads or replay crashes.",
+        "Older replay recordings keep their original Shed Skin choice sequence.",
+        "TEAMS, CHALLENGE MODE AND MENUS",
+        "Saved team creation dates now sync with the account, keeping Newest First ordering consistent across installations.",
+        "Fixed returning to an empty Elite Four menu when account synchronization fails. The menu stays usable and pending results remain saved for retry.",
+        "Fixed Tower hearts showing stale lives when returning before the result finishes saving. The page refreshes as soon as the save completes.",
+        "Tower lives now use clear red and grey hearts plus a numeric life count, including on mobile.",
+        "Corrected garbled Pokémon text in update installation and restart messages."
+      ]
+    },
+    {
       "version": "1.1.6",
       "title": "Battle and Campaign Fixes",
       "changes": [
