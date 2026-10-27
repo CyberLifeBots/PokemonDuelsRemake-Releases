@@ -1,6 +1,30 @@
 {
   "entries": [
     {
+      "version": "1.1.8",
+      "title": "Teams, Ranked Preferences and Battle Fixes",
+      "changes": [
+        "POKÉMON DUEL REMAKE v1.1.8",
+        "TEAMS, RANKED PREFERENCES AND DATABASE",
+        "Added multiple favourite teams, toggled with a standalone star beside each team. Favourite teams stay above other teams on every saved-team screen, while keeping the selected sort order within each group. Account favourites sync between installations; local teams keep their favourites on the device.",
+        "Added a saved Ranked bot delay, adjustable before and during matchmaking from 30 seconds to 10 minutes. Default keeps the existing rank-based timings. Duel clocks and human-opponent priority are unchanged.",
+        "Added Database → Figure Usage, with My Figures and Global Figures tabs showing portraits, match-appearance counts and percentages across all completed recorded modes. Each starting figure counts once per side per duel; global totals count both sides separately. Earlier recordings are added in the background; records without team data are excluded.",
+        "BATTLE FIXES",
+        "Mega Gardevoir's Cerebral Embrace now limits the remaining action to Mega Gardevoir's MP move, attack or End Turn. Pokémon switched onto the field finish their entry Abilities before play continues.",
+        "Fixed Regigigas receiving Thankfulness's extra MP after other effects had already raised it above MP1. Max Revive can now restore Regigigas from the P.C.",
+        "Knock Off now cancels one active Plate effect on its battle opponent in White/Gold damage matchups, including when Knock Off loses. Cancelling the active Mega Evolution Plate also ends that Mega Evolution.",
+        "Fixed Override and similar adjacent status effects losing their targets when the opposing move relocates the user.",
+        "Shattered Psyche now offers movement after the battle's knockout and relocation effects finish, and only while its user remains on the field.",
+        "Playful Punch now pushes along the battle's straight line instead of bending into other lanes, including when its user is knocked out.",
+        "Sweet Scent no longer gives its user Wait. An already-adjacent selected Pokémon receives the Wait instead.",
+        "Z-Move secondary effects now resolve when losing a White/Gold damage comparison, while respecting legal targets and movement restrictions.",
+        "Fixed Hyper Beam and similar forced-turn effects creating an extra skipped turn against the AI.",
+        "MAYHEM AND QUESTS",
+        "Identity Crisis no longer selects None as a random Ability. Older replays retain their original Ability rolls.",
+        "Fixed quest replacement buttons blinking during background quest refreshes."
+      ]
+    },
+    {
       "version": "1.1.7",
       "title": "Clocks, Replays and Battle Fixes",
       "changes": [
