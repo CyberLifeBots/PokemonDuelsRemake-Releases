@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.2.2",
+      "title": "Cofagrigus and Cosmoem fixes",
+      "changes": [
+        "Mummy replaces the live Ability and appears on the card and in Active Effects. Eligible affected Pokemon spread Mummy through battles.",
+        "The original Ability returns on leaving the field, evolving, devolving, or another Ability-changing effect. Tagging and status recovery do not cure Mummy.",
+        "King Mummy gains +1 MP per other friendly Yamask or Cofagrigus on the field, up to 3 MP. Eligible opponents that MP move over Cofagrigus EX receive Mummy.",
+        "Nightmare of The Ancient Mummy applies the same Ability change with its existing animation.",
+        "Fixed Cosmoem's Black Core evolution prompt after a Teleport surround.",
+        "Ranked AI matches do not change rating above 1600, and AI games do not affect win/loss/draw counters. Historical statistics were corrected without deleting replays or changing historical ratings.",
+        "Includes the same released fixes for Windows, Android and the browser game."
+      ]
+    },
+    {
       "version": "1.2.1",
       "title": "Figure progression references",
       "changes": [
