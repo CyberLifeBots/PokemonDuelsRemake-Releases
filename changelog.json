@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "1.2.3",
+      "title": "Cofagrigus EX mist and AI-forfeit rewards",
+      "changes": [
+        "Added soft drifting mist around Cofagrigus EX. The mist follows the figure animation setting.",
+        "Fixed Cofagrigus EX being skipped by the figure animation filter.",
+        "Forfeiting against an AI opponent no longer grants a chest. Forfeiting against a human opponent still grants the usual chest. The account-server update is deployed.",
+        "The same figure effect is included in the Windows/Android patch and browser game."
+      ]
+    },
+    {
       "version": "1.2.2",
       "title": "Cofagrigus and Cosmoem fixes",
       "changes": [
