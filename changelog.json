@@ -1,6 +1,33 @@
 {
   "entries": [
     {
+      "version": "1.2.1",
+      "title": "Figure progression references",
+      "changes": [
+        "Enhancement and Wheel Modification resolve figure references through the shared catalog.",
+        "The account-server update archived and reconciled older ID/path progression records while preserving earned progression.",
+        "Browser v1.2.1 includes all v1.1.9 and v1.2.0 content and fixes."
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "title": "Cofagrigus gift visibility",
+      "changes": [
+        "Gift requests and acknowledgements report the running patch version instead of the installer version.",
+        "Outdated figure catalogs refresh after patch updates. Cofagrigus EX appears in New Figures."
+      ]
+    },
+    {
+      "version": "1.1.9",
+      "title": "Cofagrigus EX and Mega Evolution emblem",
+      "changes": [
+        "Added Cofagrigus EX, King Mummy and its signature Nightmare of The Ancient Mummy Z-Move.",
+        "Started the Cofagrigus EX launch gift campaign; the original seven-day reveal window remains in effect.",
+        "The Mega Evolution emblem appears during the white-light transition.",
+        "Includes the approved Celebi, Mega Sableye, Dark Energy, menu-message and replay fixes."
+      ]
+    },
+    {
       "version": "1.1.8",
       "title": "Teams, Ranked Preferences and Battle Fixes",
       "changes": [
