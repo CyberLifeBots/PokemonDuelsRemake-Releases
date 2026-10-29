@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "1.2.5",
+      "title": "Rotation layout correction",
+      "changes": [
+        "Fixed Settings and Pause staying off-center after rotating back to landscape.",
+        "Fixed battle panels drifting outside the screen after repeated rotations, including during an active wheel spin.",
+        "Includes the portrait battles, AUTO-ROTATE BATTLES setting and mobile first-turn hint from v1.2.4.",
+        "The same correction is live in the browser. No account-server update is required."
+      ]
+    },
+    {
       "version": "1.2.4",
       "title": "Automatic portrait battles",
       "changes": [
