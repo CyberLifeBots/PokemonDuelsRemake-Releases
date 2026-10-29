@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "1.2.4",
+      "title": "Automatic portrait battles",
+      "changes": [
+        "Rotate your phone or tablet during a match to switch between portrait and the normal landscape board, including wheel battles. Menus remain horizontal.",
+        "AUTO-ROTATE BATTLES in Settings lets you disable the feature. The choice is remembered per device.",
+        "A mobile-only animated phone beside Settings and Chat introduces rotation until your first turn ends.",
+        "Fixed missing landscape controls after starting a match in portrait. The current turn and wheel spin are preserved during rotation.",
+        "The same update is available in the mobile browser. No account-server update is required."
+      ]
+    },
+    {
       "version": "1.2.3",
       "title": "Cofagrigus EX mist and AI-forfeit rewards",
       "changes": [
