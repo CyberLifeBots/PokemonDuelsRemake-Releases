@@ -1,6 +1,31 @@
 {
   "entries": [
     {
+      "version": "1.2.6",
+      "title": "Battle fixes and browser improvements",
+      "changes": [
+        "Fixed Curse-marker exclusion against Arceus: Multitype prevents exclusion from attack effects, not markers.",
+        "Fixed Fang Finale excluding Cracked opponents after White/Gold/Miss wins, losses and draws, including figures with other forms. Blue and Purple outcomes remain exempt.",
+        "Fixed Magikarp offering a knockout evolution when an effect excludes it or sends it to Ultra Space.",
+        "Fixed Snorlax’s Pulverizing Pancake applying a normal damage knockout after pushing its opponent back.",
+        "Deoxys finishes its form-change presentation before the Z-Move choice opens.",
+        "Standard Groudon and Kyogre can select their Primal form in the team builder.",
+        "Mayhem Tower preserves a completed win while retrying result synchronization.",
+        "Fixed AI-forfeit classification on the account server so surrendering to a ranked bot cannot grant rewards.",
+        "Untimed portrait matches no longer display placeholder clocks; portrait board framing and arena coverage are improved.",
+        "The camera stays on the winning Pokémon after a whole-match victory.",
+        "Fixed native Settings buttons being blocked while matchmaking search is active.",
+        "Corrected move-description typos for Heatmor, Mega Absol and Mega Kangaskhan.",
+        "Replaced browser menus with lightweight HTML menus matching the Windows fixed-ratio layouts and controls, including team editing, forms, evolutions, plates, enhancement, saved wheel modifications, challenges, Tower, matchmaking, lobbies, chat, settings, history and announcements.",
+        "Browser play requires sign-in or account creation. Board availability and separate team selection follow the native game.",
+        "Corrected Mayhem leaderboard floors, menu overflow, panel clipping and banner fitting; added the app-download recommendation on menu screens.",
+        "Reduced browser battle-animation rendering work while keeping figure and attack animations enabled.",
+        "Browser menus prepare common battle assets after sign-in and selected-team figures, evolutions and forms while choosing a match, with a small footer progress indicator.",
+        "Fixed mobile browser wheel battles clipping after rotation in either orientation.",
+        "Removed the extra browser duel toolbar and status strip during play. Loading errors retain a return-to-menu control."
+      ]
+    },
+    {
       "version": "1.2.5",
       "title": "Rotation layout correction",
       "changes": [
