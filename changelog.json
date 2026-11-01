@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.3.2",
+      "title": "Battle fixes",
+      "changes": [
+        "Fixed Ultra Necrozma remaining transformed after Ultra Burst ends.",
+        "Moved ability buttons to the top in vertical layout and improved touch controls.",
+        "Fixed Rocky Helmet triggering after Judgment and other non-knockout moves."
+      ]
+    },
+    {
       "version": "1.3.1",
       "title": "Battle fixes",
       "changes": [
