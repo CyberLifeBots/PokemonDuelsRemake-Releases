@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.2.8",
+      "title": "Casual banner and bot timer",
+      "changes": [
+        "Casual matchmaking now uses its own banner, and the overlapping Casual label has been removed.",
+        "Bot delay now uses a slider from 3 to 10 minutes, in one-minute steps."
+      ]
+    },
+    {
       "version": "1.2.7",
       "title": "Custom lobbies and Casual matchmaking",
       "changes": [
