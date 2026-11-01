@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.2.7",
+      "title": "Custom lobbies and Casual matchmaking",
+      "changes": [
+        "Added custom lobby settings for timers, first player, turn limits, Plates and Gym Rules.",
+        "Gym Rules give matching Pokémon +1 MP and +20 damage and use the matching Gym arena.",
+        "Added Casual mode under Online Matchmaking: no rating changes, and a chest only when you win.",
+        "Mayhem leaderboard Pokéballs show whether a run is ongoing or ended.",
+        "Improved the goal victory camera and removed zoom-ins for other match endings.",
+        "Fixed Butterfree’s Whirlwind description and lingering target circles after AI Reckless Charge."
+      ]
+    },
+    {
       "version": "1.2.6",
       "title": "Battle fixes and browser improvements",
       "changes": [
