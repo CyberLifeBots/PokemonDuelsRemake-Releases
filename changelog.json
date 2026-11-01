@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.2.9",
+      "title": "Browser fixes and Cofagrigus EX",
+      "changes": [
+        "Fixed browser duels failing to start or showing missing artwork.",
+        "Fixed the hub Collection preview and figure count.",
+        "Cofagrigus EX now follows the normal three-copy deck limit."
+      ]
+    },
+    {
       "version": "1.2.8",
       "title": "Casual banner and bot timer",
       "changes": [
