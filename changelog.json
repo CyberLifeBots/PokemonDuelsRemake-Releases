@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.3.1",
+      "title": "Battle fixes",
+      "changes": [
+        "Knock Off now removes only Plates attached to its target.",
+        "Precipice Blades and Origin Pulse only count extra Misses from Burn and Paralysis.",
+        "Fixed Mayhem leaderboard run status.",
+        "Fire Fang now burns on wins, losses and draws against White, Gold and Miss.",
+        "Larger Plates in the Team Editor, with fewer cards per row.",
+        "Improved Windows update downloads."
+      ]
+    },
+    {
       "version": "1.3.0",
       "title": "Ranked seasons",
       "changes": [
