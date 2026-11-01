@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.3.0",
+      "title": "Ranked seasons",
+      "changes": [
+        "Added Ranked seasons, with ratings resetting to 1000 each season.",
+        "Added season history, podium totals and previous-season results to account stats and player cards.",
+        "Added a Seasons selector for previous Ranked leaderboards.",
+        "Updated rank thresholds. Wins award at least 10 RP; losses cost at most 20 RP.",
+        "Leaderboard entry now needs one Ranked game, including bots. Season awards require 10 human Ranked games.",
+        "Improved account stats layout, fixed leaderboard loading and renamed Searching Ranked to Searching Online."
+      ]
+    },
+    {
       "version": "1.2.9",
       "title": "Browser fixes and Cofagrigus EX",
       "changes": [
