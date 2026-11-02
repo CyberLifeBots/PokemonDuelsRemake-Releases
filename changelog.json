@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.3.3",
+      "title": "Move fixes and ranked adjustments",
+      "changes": [
+        "Fang Finale now excludes Cracked opponents that land Purple Attacks.",
+        "Shattered Psyche offers all valid three-step destinations, including the route through the top-left entry point.",
+        "Updated the standalone title artwork in native and browser menus.",
+        "New human ranked rating bands: below 500 difference, +25/-15; 500–999, higher +25/-20 and lower +30/-15; 1000–1999, higher +20/-25 and lower +30/-10; 2000+, higher +15/-30 and lower +40/-5. Draws remain unchanged.",
+        "Bot scoring keeps its existing formula below 1600; rating gains and losses stop at 1600 and above.",
+        "Ranked rating changes activate after the matching account-server update is installed."
+      ]
+    },
+    {
       "version": "1.3.2",
       "title": "Battle fixes",
       "changes": [
