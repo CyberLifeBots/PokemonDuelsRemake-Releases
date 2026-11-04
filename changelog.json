@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "1.3.4",
+      "title": "Battle fixes, duel reporting, and vertical layout",
+      "changes": [
+        "Black and White Kyurem can move through occupied Entry Points from the bench.",
+        "Fixed premature Wait losses when Celebi can use Time Travel, including from the P.C.",
+        "Mid-Air Strike now moves Monferno back and gives it Wait after knocking out its opponent.",
+        "Cosmo Energy now ends your turn when activated, with updated Plate text.",
+        "Mayhem Tower results include Duel Log alongside Match ID and Replay.",
+        "Duel logs and the local overlay API now report evolution, Mega Evolution and reversion, form changes, and type changes.",
+        "Fixed field-spin positioning in vertical layout and kept results in the duel orientation until you leave.",
+        "Added Discord help for update download problems.",
+        "Included the browser Elite Four recovery and campaign team-picker layout fixes."
+      ]
+    },
+    {
       "version": "1.3.3",
       "title": "Move fixes and ranked adjustments",
       "changes": [
