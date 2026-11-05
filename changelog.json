@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "1.3.5",
+      "title": "Wait-loss fixes and collection sorting",
+      "changes": [
+        "Fixed premature Wait losses when a frozen Entry Point still allows a legal deployment.",
+        "Wait-loss checks now finish battle and turn-start effects, including Final Song, before judging available actions. Legal Plates and Abilities count as actions.",
+        "Generator now displays its move name, with clear next-turn and this-turn wording.",
+        "Added highest and lowest Chain Level sorting to the figure collection.",
+        "Browser Kanto Hard and Expert now use your selected team. Normal tutorials keep their provided teams."
+      ]
+    },
+    {
       "version": "1.3.4",
       "title": "Battle fixes, duel reporting, and vertical layout",
       "changes": [
