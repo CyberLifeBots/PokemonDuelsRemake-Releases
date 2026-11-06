@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.3.6",
+      "title": "Duel fixes, mobile cards, and lobby settings",
+      "changes": [
+        "Reckless Charge now works as a normal MP move. Rhyhorn, Rhydon, and Rhyperior can move two points straight or one diagonally at base MP.",
+        "Blackout applies Wait only when paralysis starts. Rally gives Ember +20 damage per figure in your P.C.",
+        "Portrait duels open a smaller slide-up Pokémon card. Settings offers an optional top card with a Details button.",
+        "Evolution and form previews are tappable buttons at the bottom of the mobile card.",
+        "Custom lobby settings now sit below Random Team and include separate battle-only switches for figure levels and Chain Level bonuses.",
+        "Excluded Plates have a red X. Hover or tap to see what excluded them.",
+        "Returning from a replay restores the Match History tab, page, search, and filters."
+      ]
+    },
+    {
       "version": "1.3.5",
       "title": "Wait-loss fixes and collection sorting",
       "changes": [
