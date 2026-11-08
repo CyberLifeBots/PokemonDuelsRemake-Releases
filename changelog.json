@@ -1,6 +1,28 @@
 {
   "entries": [
     {
+      "version": "1.3.7",
+      "title": "Mobile UI and gameplay fixes",
+      "changes": [
+        "New mobile vertical UI.",
+        "Zygarde: Power Construct now requires two Pokémon belonging to its player in the same PC.",
+        "Knockout effects: Corkscrew Crash and other KO-triggered effects now activate when the defeated opponent changes form instead of entering the PC.",
+        "Taunt: Now affects the initial spin only, preventing repeating attacks such as Icicle Spear from looping incorrectly.",
+        "Primal Groudon: Can now choose to revert when knocked out by Fissure.",
+        "Rhyperior: Fixed straight-line movement from the bench toward the center-left/right spaces.",
+        "Air Balloon: No longer allows Rhyperior to exceed 2 MP.",
+        "Lovely Battlefield: Normal/Fighting Pokémon receive both type bonuses, giving Mega Lopunny +20 damage.",
+        "Night Daze: Correctly applies its status effect on draws and losses against White/Gold attacks.",
+        "Wash Out: Correctly applies Wait after knockback.",
+        "Fixed field spin wheels being hidden beneath figures in portrait.",
+        "Added the missing field-wheel animation for Leer.",
+        "Improved victory lighting and removed the repeated zoom-out/zoom-in transition.",
+        "Added opponent reporting after a duel, including from the end-duel menu.",
+        "Improved browser session handling to prevent temporary errors and cached-page returns from unnecessarily signing players out.",
+        "Figure usage now counts completed matches from the shared Ranked/Casual queue, excluding Mayhem, private rooms, and offline matches."
+      ]
+    },
+    {
       "version": "1.3.6",
       "title": "Duel fixes, mobile cards, and lobby settings",
       "changes": [
