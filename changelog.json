@@ -13,7 +13,7 @@
         "Native and browser clients show the shared Ranked and Casual cooldown notice when the account server reports one.",
         "Browser Match History keeps its portrait layout and returns cleanly from replays.",
         "The native updater can parse four-part versions. This update uses v1.3.10 so existing installs can receive it automatically.",
-        "A separate private server update contains shared Ranked and Casual cooldowns, public gameplay profiles, and grouped cosmetic variants in figure usage statistics. These server changes require installation on the account service."
+        "A separate private server update contains shared Ranked and Casual cooldowns, public gameplay profiles, and grouped cosmetic variants in figure usage statistics."
       ]
     },
     {
