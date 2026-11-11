@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.3.9",
+      "title": "Disguise and Cotton Guard fixes",
+      "changes": [
+        "Disguise: The marker remains until it prevents a knockout, including after battles lost without a knockout.",
+        "Cotton Guard: Protection expires after the Pokémon’s next battle, including wins and draws.",
+        "Browser rewards: Fixed missing reward artwork on the paused post-battle reward screen.",
+        "Lava Plume: Removed “by a White or Gold Attack” from the description.",
+        "Volt Switch: Added “You may” to clarify that switching is optional.",
+        "Trickery: Added “You may” to clarify that shifting the result is optional."
+      ]
+    },
+    {
       "version": "1.3.8",
       "title": "Mobile and duel hotfix",
       "changes": [
