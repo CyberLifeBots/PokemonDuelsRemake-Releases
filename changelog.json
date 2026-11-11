@@ -9,7 +9,17 @@
         "Browser rewards: Fixed missing reward artwork on the paused post-battle reward screen.",
         "Lava Plume: Removed “by a White or Gold Attack” from the description.",
         "Volt Switch: Added “You may” to clarify that switching is optional.",
-        "Trickery: Added “You may” to clarify that shifting the result is optional."
+        "Trickery: Added “You may” to clarify that shifting the result is optional.",
+        "Pending publication: the following committed changes were omitted from the published native patch and browser game runtime. Server changes were not deployed by this release; their live status is unverified.",
+        "Pending publication — Movement: Fix Z-move movement paths and Reckless Charge movement, including Bench movement and Air Balloon/Mud Coating interactions.",
+        "Pending publication — Shaymin: Fix Gracidea eligibility and the transition to Sky Forme.",
+        "Pending publication — Sandbox: Add plate refresh support.",
+        "Pending publication — Restorer: Restrict targets to eligible Pokémon in the player's own Pokémon Center.",
+        "Pending publication — Rooms: Show team readiness and provide copyable lobby codes.",
+        "Pending publication — Moderation: Add shared Ranked and Casual cooldowns with client notices and admin controls; server publication remains unverified.",
+        "Pending publication — Profiles: Make account profiles public; server publication remains unverified.",
+        "Pending publication — Figure usage: Group cosmetic variants in usage statistics; server publication remains unverified.",
+        "Pending publication — Updates: Add native parsing for four-part version numbers. End-to-end publisher support remains incomplete."
       ]
     },
     {
