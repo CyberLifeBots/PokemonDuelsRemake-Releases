@@ -1,6 +1,27 @@
 {
   "entries": [
     {
+      "version": "1.3.11",
+      "title": "Battle, replay and interface fixes",
+      "changes": [
+        "Cosmoem can now evolve through Black Core when Rare Candy evolves Cosmog and completes a surround.",
+        "Nebby’s Power can now bring your Solgaleo or Lunala out of the P.C. and onto an open point next to Cosmog.",
+        "Mega Gengar’s Otherworldly Talons no longer lets the board highlight illegal MP destinations for affected Pokémon. Legal attacks remain available.",
+        "Surrounds are now checked after Mega Evolution expires. If reverting clears Sleep or Freeze and completes a surround, the knockout resolves before the next player acts.",
+        "Rhyperior’s Reckless Charge no longer turns a 3 MP move into four straight steps. When moving from the bench, the entry point counts as one step.",
+        "Extreme Evoboost now stacks, adding another +50 damage each time it’s used.",
+        "Guardian of Alola now appears as a Fairy-type move in the Z-Move selection menu.",
+        "Previous Page and Next Page now stay visible above the scrollable match list. Back to Player Hub takes up less space in the footer.",
+        "Shared private lobby replays now retain the match’s settings, including whether Chain levels were disabled. This also applies when Aegislash changes to Blade Forme.",
+        "The Plate confirmation now appears above the match banners and stays centered on narrow screens.",
+        "Enabled buttons in mobile Wheel Modification are brighter and bolder, and disabled buttons are dimmed.",
+        "Signed-in browser players continue to count toward Players Online while playing a duel in a visible tab.",
+        "Mirror Coat on Corsola and Tentacruel now uses Blastoise’s wording. “If the battle opponent spins a Purple Attack, it is knocked out.”",
+        "Land’s Wrath on Zygarde 50% Forme now reads “All other Pokémon on the field spin. Those that spin Purple Attacks are knocked out.”",
+        "Rock Slide on Durant, Onix, Tyranitar, and Mega Aerodactyl now reads “All neighbor Pokémon spin. Those that spin a Miss are knocked out.”"
+      ]
+    },
+    {
       "version": "1.3.10",
       "title": "Battle, Plate and room fixes",
       "changes": [
