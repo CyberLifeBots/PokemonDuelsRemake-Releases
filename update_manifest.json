@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "latest_version": "1.3.11",
+  "latest_version": "1.3.12",
   "base_version": "1.0.0",
   "mandatory": false,
   "patch": {
@@ -327,6 +327,14 @@
         "sha256": "2c48d12682e36ca6e2cd946d8fc0063aa7f10567263f06600f3aa6cb7c893570",
         "size_bytes": 1562532,
         "requires_version": "1.3.10",
+        "cumulative": false
+      },
+      {
+        "version": "1.3.12",
+        "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v1.3.12/PokemonDuelsRemake_1.3.12_patch.pck",
+        "sha256": "73fd005567b28ab57e65f98db3c5e17088cbfec5476d051195f44b1b64c33ea9",
+        "size_bytes": 591236,
+        "requires_version": "1.3.11",
         "cumulative": false
       }
     ]
