@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "1.3.12",
+      "title": "Gameplay and mobile interface fixes",
+      "changes": [
+        "Porygon’s Trace now applies the Primal Rage effect it copies from Kyogre, Groudon, or Rayquaza, including the bonuses for eligible allies.",
+        "Steelix’s Take Away only sends Steelix to the Bench after its opponent reaches Steelix’s P.C.",
+        "Fixed the Giovanni tutorial so it can be completed under the current movement rules. This fix is already live in the browser.",
+        "Tap outside the Pokémon info drawer to close it. You can still drag it to expand.",
+        "Open Chat and Settings from the Duel Menu. Portrait chat fills the available screen and hides Expand.",
+        "Sphere, Trick Room, and other field effects sit below the player banners. The turn counter hides while an effect prompt is open.",
+        "Match Over and other dialogs fit their content and scroll when needed.",
+        "Load Full Leaderboard stays within the screen.",
+        "Sandbox Tools can be opened by tapping in either orientation. In portrait, the button sits above the turn banner.",
+        "Enlarged the Plate deck screen and its text."
+      ]
+    },
+    {
       "version": "1.3.11",
       "title": "Battle, replay and interface fixes",
       "changes": [
