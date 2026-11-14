@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.3.13",
+      "title": "Gameplay and portrait fixes",
+      "changes": [
+        "Backdraft now checks who was adjacent to the battle opponent before it moved, so eligible opposing Pokémon are sent to their P.C. on wins, ties, and eligible losses.",
+        "Ho-Oh’s Serene Light now checks Ho-Oh’s own P.C. when returning Pokémon to their benches.",
+        "Spaceborne now finds open points reachable by a three-step route, including points that also have a shorter route.",
+        "Standardized knocked out wording in Explosion, Dragon Tail, Hydro Kick, Abyssal Grip, Tentacle Barrage, and Night Stalker. Tentacle Barrage now uses the status names Poisoned and Noxious.",
+        "Wheel Modification now lets you refund and reassign expansion points even when the wheel already has redistribution points assigned.",
+        "In portrait browser mode, tapping a Figure or Plate opens the selected card immediately.",
+        "In portrait duels, tapping the board outside the Pokémon info drawer closes it and lets the tap reach the board.",
+        "The portrait turn counter now counts down from 300 in standard duels and follows the turn limit in custom lobbies."
+      ]
+    },
+    {
       "version": "1.3.12",
       "title": "Gameplay and mobile interface fixes",
       "changes": [
