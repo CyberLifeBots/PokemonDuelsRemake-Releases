@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.3.14",
+      "title": "Team imports and Reckless Charge",
+      "changes": [
+        "Import Team Code accepts uppercase, lowercase, or mixed-case prefixes. You can paste a copied code directly.",
+        "The browser opens imported teams in the standard Team Builder in portrait and landscape. Back and Save Team are available, and invalid codes show an error in the import dialog.",
+        "Rhyperior's Reckless Charge allows up to two steps from the bench, with the Entry Point counting as the first step."
+      ]
+    },
+    {
       "version": "1.3.13",
       "title": "Gameplay and portrait fixes",
       "changes": [
