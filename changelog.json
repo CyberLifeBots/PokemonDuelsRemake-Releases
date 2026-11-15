@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.4.1",
+      "title": "Replay Compatibility",
+      "changes": [
+        "Older replays load archived figure and Plate data with the rules recorded for the duel. This preserves the original movement and Ability behavior for figures such as Mega Blaziken and Manaphy.",
+        "New replays save their own figure stats, wheels, Ability settings, and forms so future balance updates can preserve their playback.",
+        "Steelix R’s Pull In now has two stars. Replays from the released v1.4.0 build keep the three-star version."
+      ]
+    },
+    {
       "version": "1.4.0",
       "title": "Balance Update",
       "changes": [
