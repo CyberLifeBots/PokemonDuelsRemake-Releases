@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "1.4.2",
+      "title": "Tutorial and Battle Fixes",
+      "changes": [
+        "Giovanni’s Kanto tutorial can play his scripted Reckless Charge opening in the browser.",
+        "Misty’s tutorial now has Floatzel and Kabuto land Aqua Jet directly so the lesson can continue. Kabuto’s ability is labeled Emergent Evolution and lets it evolve after battle without a respin.",
+        "White and Gold attacks now resolve their ordinary effects on draws and losses against other White or Gold attacks. Explicit win and knockout conditions, repeat-spin rules, and the rules saved with older replays are preserved.",
+        "Pichu’s Nuzzle paralyzes the battle opponent on White and Gold ties and losses. Tornadus Incarnate’s Heat Wave still resolves if it is knocked out by White or Gold damage.",
+        "Arceus keeps its chosen type when Multitype is nullified.",
+        "Rocky Helmet works when Magikarp uses Rapid Evolution to survive a damage knockout.",
+        "U-turn switches when a legal reserve is available. With multiple valid Pokémon, you choose which one to switch in.",
+        "Spaceborne highlights open points exactly three steps away by the shortest open route.",
+        "Reveal Glass awards a goal win when an eligible genie changes form on the opponent’s goal.",
+        "Figure Collection keeps upgrade levels visible after the portrait layout finishes loading.",
+        "Figure Library, Figure Collection, and Team Builder offer AND and OR type filters in the app and browser.",
+        "Fixed Bind’s typo and other roster text. Clarified Warp Hole, Play Rough, Rare Eevee, Tentacle Barrage, Druddigon’s Revenge, Crabhammer, and Double Slap."
+      ]
+    },
+    {
       "version": "1.4.1",
       "title": "Replay Compatibility",
       "changes": [
