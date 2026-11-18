@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.4.3",
+      "title": "Mew and Shiny Mew",
+      "changes": [
+        "To celebrate 1,500 Discord members, Shiny Mew EX joins the roster as a gift figure.",
+        "Mew and Shiny Mew gain Genetic Chaos. Before making an MP move, choose another Pokémon on the field to copy its Wheel, MP, Type and Ability until the end of your opponent's next turn.",
+        "Hyper Sonic deals 41 damage. A team can include one Mew across both editions. Existing teams with more than one need to be edited before play.",
+        "Poipole and Shiny Poipole can use Spaceborne to reach an empty point along a three-step route, even when there is a shorter route to the same point. The route can cross occupied points.",
+        "Big Chorus blocks named Mega Stones when three qualifying Poli-family figures are on the field.",
+        "Eon Flute can recall an excluded Eon Twin. Twins in Ultra Space stay there and appear only in the Ultra Space list.",
+        "Plate prompts appear above player banners. Gym and Elite Four passive cards clear the landscape Chat and Settings controls.",
+        "The portrait Player Hub shows a larger update notice. Browser players see optional Windows, Android and Mac download links after signing in."
+      ]
+    },
+    {
       "version": "1.4.2",
       "title": "Tutorial and Battle Fixes",
       "changes": [
