@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.4.4",
+      "title": "Mew and portrait controls",
+      "changes": [
+        "Mew and Shiny Mew can end their turn immediately after using Genetic Chaos or continue with the copied MP.",
+        "In portrait Team Builder, tap − on an occupied slot to remove that Pokémon.",
+        "View Model is beside Related Figures. Tapping Close in portrait returns to the same figure and preserves unsaved team edits."
+      ]
+    },
+    {
       "version": "1.4.3",
       "title": "Mew and Shiny Mew",
       "changes": [
