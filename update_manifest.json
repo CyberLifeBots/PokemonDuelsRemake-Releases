@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "latest_version": "1.4.3",
+  "latest_version": "1.4.4",
   "base_version": "1.0.0",
   "mandatory": false,
   "patch": {
@@ -383,6 +383,14 @@
         "sha256": "5356d8ebc9e98c13dd9c3681e771f47044c7fe0d758f55dde8b113cd8ae1cf71",
         "size_bytes": 6832616,
         "requires_version": "1.4.2",
+        "cumulative": false
+      },
+      {
+        "version": "1.4.4",
+        "url": "https://github.com/CyberLifeBots/PokemonDuelsRemake-Releases/releases/download/v1.4.4/PokemonDuelsRemake_1.4.4_patch.pck",
+        "sha256": "dae32ddec5d0668a411eb90c89b702173357a6852bf50740b1f465668e9eba09",
+        "size_bytes": 842196,
+        "requires_version": "1.4.3",
         "cumulative": false
       }
     ]
