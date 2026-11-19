@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.4.5",
+      "title": "Duel fixes and battle wheel updates",
+      "changes": [
+        "Mew and Shiny Mew can use Genetic Chaos at the start of your turn, before playing a Plate. After transforming, you can move or attack with Mew, or end your turn. Its figure card shows Mew’s name and the Pokémon it copied.",
+        "Night Daze no longer turns field spins into Misses for moves such as Earthquake and Rock Slide. It still affects battle spins.",
+        "Ditto now wins the duel when its Incarnate Forme copy expires on the opponent’s goal.",
+        "Battle wheel figures now use consistent framing. Mew and Shiny Mew appear smaller, and Shiny Mew’s sparkle is visible.",
+        "Replays keep the transformation and field-spin rules from the recorded duel.",
+        "Mobile duels use less memory. The Team Plates buttons now sit below the cards.",
+        "Ranked Play Again loads the opponent’s figures before validating their team. Database, Quests, My Collection, Leaderboard, Challenges and My Team are hidden during Ranked search."
+      ]
+    },
+    {
       "version": "1.4.4",
       "title": "Mew and portrait controls",
       "changes": [
