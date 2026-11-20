@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.4.6",
+      "title": "Figure Library, Mew and Ranked fixes",
+      "changes": [
+        "Browse released figures in Database → Figure Library before unlocking them, including Starmie EX and Mega Starmie UX. NX figures are available for reference. Team Builder still requires the appropriate unlocks and excludes NX figures from player teams.",
+        "Mew and Shiny Mew now apply Photon markers and other copied move effects using their transformed attacks.",
+        "Genetic Chaos no longer lets Mew survive a knockout through a copied form change or evolution.",
+        "A Range 2 attack that would knock out Mew can do so even when Mew spins Hyper Sonic against an attack dealing 100 or more damage.",
+        "Select a regional progress bar in Challenges to open the Challenge Mode region list.",
+        "Every player on the Ranked leaderboard receives a unique position in rating order. Season awards still require 10 human Ranked games."
+      ]
+    },
+    {
       "version": "1.4.5",
       "title": "Duel fixes and battle wheel updates",
       "changes": [
