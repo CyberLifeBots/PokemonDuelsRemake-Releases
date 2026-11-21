@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "1.4.7",
+      "title": "Battle effects and figure progression",
+      "changes": [
+        "Mandibuzz can gain Weak Armor when Whirlwind moves its battle opponent to the Bench. A blocked Whirlwind gives no marker.",
+        "Mold Breaker on Druddigon and Pangoro negates abilities that boost or lower attack damage for the battle opponent.",
+        "Powder Snow, Lively Dance, and Antagonism show the wheel under the spinning figure.",
+        "Torment triggers its respins only when it wins the initial wheel comparison.",
+        "Night Daze, Shadow Beam, Cotton Guard, and Balloon Flight clear when a figure enters the P.C.",
+        "Rhyperior’s move description clarifies its two-step straight-line limit even with boosted MP.",
+        "Browser Expert challenges dim teams with EX or UX starters. Choose an eligible team to start a Gym challenge or an Elite Four run.",
+        "With the updated account server, figure level XP scales by rarity. UX costs 100% of the base requirement, EX 90%, R 80%, UC 70%, and C 60%. NX is outside the scale.",
+        "With the updated account server, permanent account bans show their reason at sign-in, and Ranked-only bans show their end date when entering Ranked."
+      ]
+    },
+    {
       "version": "1.4.6",
       "title": "Figure Library, Mew and Ranked fixes",
       "changes": [
