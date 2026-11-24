@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "1.4.8",
+      "title": "Weather, duel fixes and Mayhem Tower",
+      "changes": [
+        "Sun, Rain, Fog, Snow, and Sandstorm introduce themselves with a centered banner showing the weather and its battle effects. The banner uses the Gym intro sound. Rain, snow, and sand build up gradually, sun rays brighten, and each condition has its own ambience.",
+        "Intense Sun and Heavy Rain have their own artwork, brighter sun rays, and heavier rainfall. Try both in the sandbox with the F12 weather controls. Ranked duels continue to start with No Weather.",
+        "A winning Dragon Tail sends Mew to the Bench with Wait 1 when Hyper Sonic protects it from the knockout.",
+        "Sharpedo's Rough Skin applies a Cracked marker on eligible ties, including equal-star Purple attacks.",
+        "Volume sliders can be dragged on touchscreens.",
+        "The End Turn warning can remember your choice for your next 20 turns in that duel. The other player's warning is independent.",
+        "Heatran's Magma Slide pushes as far as space allows, applies Wait, and returns Heatran to the Bench if a surround leaves it with no opponent to battle.",
+        "Ponyta can use Rush In after Max Revive. Power Battle and No Guard now apply to ability-triggered respins.",
+        "Status and marker descriptions explain when tagging removes them. Grass Sphere protects eligible Grass types from an opposing Backtrack. A transformed Mew can apply Sharpedo's Cracked marker on knockout, and Overdrive wears off when its source leaves the field.",
+        "Refreshing a Player vs AI duel restores the last saved action. The browser update also improves remembered sign-ins and records more detail when a duel is interrupted.",
+        "After a win, choose Enter Floor [next number] to continue directly. With the updated account server, your chest rewards accumulate across floors and are paid together when you leave the run. If the connection drops during a payout, you can retry without receiving the same chests twice."
+      ]
+    },
+    {
       "version": "1.4.7",
       "title": "Battle effects and figure progression",
       "changes": [
