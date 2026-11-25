@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.4.9",
+      "title": "Duel fixes and browser reliability",
+      "changes": [
+        "X-Speed turns a White attack Gold only if it deals more than 1 damage. Quiver Dance is skipped when choosing an eligible attack such as Fire Blast.",
+        "A winning attack from two spaces away can now knock out Mega Mewtwo Y when it spins Hyper Sonic, including hits that deal 100 damage or more.",
+        "Jigglypuff's Lullaby now says that affected Pokémon “fall asleep.” Lombre's Slippery now says “Once per duel.”",
+        "On phones, the duel diagnostics options scroll with the rest of Settings in portrait and landscape. Tap to expand the explanation of what gets shared.",
+        "If a duel download is interrupted, the browser retries the affected chunk up to twice and keeps the parts it already verified.",
+        "Duel interruption reports can identify which part of setup failed, including team preparation, trainer artwork, and joining a lobby. Players who share detailed reports can also send the failed download's chunk number, attempt count, and HTTP status when available."
+      ]
+    },
+    {
       "version": "1.4.8",
       "title": "Weather, duel fixes and Mayhem Tower",
       "changes": [
