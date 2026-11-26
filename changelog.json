@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.4.10",
+      "title": "Guardian and online clock fixes",
+      "changes": [
+        "When Drampa is knocked out in battle, Guardian now lets you choose one of your Pokémon in Ultra Space and return it to the point Drampa occupied.",
+        "In online duels, a delayed clock update can no longer keep counting down the wrong player’s time after a turn change. A player answering an effect prompt still uses their own time."
+      ]
+    },
+    {
       "version": "1.4.9",
       "title": "Duel fixes and browser reliability",
       "changes": [
