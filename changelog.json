@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "1.4.11",
+      "title": "Mayhem, replay and battle fixes",
+      "changes": [
+        "In Metronome Mayhem, Mega Evolution grants a different borrowed wheel. Reverting restores the original wheel.",
+        "Custom Mayhem rooms now use the host's selected weather. Browser hosts can choose the weather during room setup.",
+        "In replays, choose Find Turn and enter a recorded turn number to jump straight to it.",
+        "Cosmoem now has 4 MP while Cosmic Power and Melemele Wish are both active, before MP markers apply.",
+        "The Cracked marker now appears over the battle figure instead of floating beside it."
+      ]
+    },
+    {
       "version": "1.4.10",
       "title": "Guardian and online clock fixes",
       "changes": [
